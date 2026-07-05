@@ -14,6 +14,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     opacity: 1,
-    transition: 'all 1s ease-in-out'
+    backgroundColor: '#00C853',
   },
 });

@@ -10,6 +10,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import OTPScreen from './src/screens/OtpScreen';
+import './src/i18n';
 
 const Stack = createNativeStackNavigator();
 
