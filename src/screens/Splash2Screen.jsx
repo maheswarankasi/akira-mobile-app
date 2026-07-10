@@ -5,7 +5,7 @@ const {width, height} = Dimensions.get('window');
 export default function Splash2Screen() {
   return (
     <View style={styles.container}>
-      <Image source={require("../assets/images/Page-2.png")} style={{width: width, height: height}} />
+      <Image source={require("../assets/images/Page-2.webp")} style={{width: width, height: height}} />
     </View>
   );
 }

@@ -8,29 +8,27 @@ import {
   Image,
 } from "react-native";
 import { useTranslation } from "react-i18next";
-import { useAppStore } from "../store/appStore";
+import { useAppStore } from "../store/store";
 import "../i18n";
+import { useDispatch, useSelector } from "react-redux";
+import { setLanguage } from "../store/languageSlice";
 
 export default function LanguageScreen({ navigation }) {
   const { t: translate, i18n } = useTranslation();
+  const dispatch = useDispatch();
 
-  // Zustand store-il ninnu global state edukkunnu
-  const globalLanguage = useAppStore((state) => state.language);
-  const setGlobalLanguage = useAppStore((state) => state.setLanguage);
+  const globalLanguage = useSelector((state) => state.language.language);
 
   // Local state for radio button selection before confirming
   const [selectedLang, setSelectedLang] = useState(globalLanguage);
 
-  const handleLanguageSelect = (lang)=>{
+  const handleLanguageSelect = (lang) => {
     setSelectedLang(lang);
     i18n.changeLanguage(lang);
-  }
+  };
 
   const handleConfirm = () => {
-    // 1. Global state update cheyyunnu
-    setGlobalLanguage(selectedLang);
-    // 2. i18n translation language change cheyyunnu
-    i18n.changeLanguage(selectedLang);
+    dispatch(setLanguage(selectedLang));
 
     // 3. Adutha screen-ilekku (Onboarding) pokunnu
     navigation.navigate("Onboarding");
@@ -154,7 +152,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#000",
     marginBottom: 8,
-    textAlign:'center'
+    textAlign: "center",
   },
   subtitle: {
     fontSize: 12,
