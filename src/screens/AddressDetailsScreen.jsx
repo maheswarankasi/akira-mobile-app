@@ -111,7 +111,10 @@ export default function AddressDetailsScreen({ route, navigation }) {
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.sectionTitle}>{t("receiver_details")}</Text>
+          <Text style={styles.sectionTitle}>
+            {t("receiver_details")}
+            <Text style={{ color: "#FF2A5F" }}>*</Text>
+          </Text>
 
           {/* NAME FIELD */}
           <View
@@ -151,7 +154,10 @@ export default function AddressDetailsScreen({ route, navigation }) {
             />
           </View>
 
-          <Text style={styles.sectionTitle}>{t("address_label")}</Text>
+          <Text style={styles.sectionTitle}>
+            {t("address_label")}
+            <Text style={{ color: "#FF2A5F" }}>*</Text>
+          </Text>
           <View style={styles.labelContainer}>
             {labels.map((labelKey) => (
               <TouchableOpacity
@@ -186,7 +192,10 @@ export default function AddressDetailsScreen({ route, navigation }) {
             ))}
           </View>
 
-          <Text style={styles.sectionTitle}>{t("add_address")}</Text>
+          <Text style={styles.sectionTitle}>
+            {t("add_address")}
+            <Text style={{ color: "#FF2A5F" }}>*</Text>
+          </Text>
 
           {/* HOUSE NO FIELD */}
           <View

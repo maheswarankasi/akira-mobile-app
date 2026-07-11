@@ -73,7 +73,7 @@ export default function LocationScreen({ route, navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={[styles.header, { paddingTop: isTamil ? 40 : 20 }]}>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate("Home")}
           style={styles.backButton}
         >
           <Ionicons name="arrow-back" size={24} color="black" />
