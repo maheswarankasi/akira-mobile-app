@@ -66,7 +66,7 @@ export default function OtpScreen({ route, navigation }) {
           // Home-ku bathila Location screen-ku phone number oda anuppurom
           navigation.reset({
             index: 0,
-            routes: [{ name: "Location", params: { phoneNumber } }],
+            routes: [{ name: "Home", params: { phoneNumber } }],
           });
         } catch (e) {
           console.log("Storage Error: ", e);

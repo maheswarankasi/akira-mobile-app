@@ -1,5 +1,6 @@
 export const products = [
   {
+    id: "prod__001",
     categoryId: "cat_fruits",
     categoryName: { en: "Fruits", ta: "பழங்கள்" },
     name: { en: "Red Banana", ta: "செவ்வாழை" },
@@ -88,6 +89,7 @@ export const products = [
     },
   },
   {
+    id: "prod__002",
     categoryId: "cat_fruits",
     categoryName: { en: "Fruits", ta: "பழங்கள்" },
     name: { en: "Alphonso Mango", ta: "அல்போன்சா மாம்பழம்" },
@@ -179,6 +181,7 @@ export const products = [
     },
   },
   {
+    id: "prod__003",
     categoryId: "cat_fruits",
     categoryName: { en: "Fruits", ta: "பழங்கள்" },
     name: { en: "Country Guava", ta: "நாட்டு கொய்யா" },
@@ -261,6 +264,7 @@ export const products = [
     },
   },
   {
+    id: "prod__004",
     categoryId: "cat_fruits",
     categoryName: { en: "Fruits", ta: "பழங்கள்" },
     name: { en: "Red Papaya", ta: "செப்பாப்பாளி" },
@@ -346,6 +350,7 @@ export const products = [
     },
   },
   {
+    id: "prod__005",
     categoryId: "cat_fruits",
     categoryName: { en: "Fruits", ta: "பழங்கள்" },
     name: { en: "Pomegranate", ta: "மாதுளை" },
@@ -438,6 +443,7 @@ export const products = [
   },
 
   {
+    id: "prod__006",
     categoryId: "cat_vegetables",
     categoryName: { en: "Vegetables", ta: "காய்கறிகள்" },
     name: { en: "Round Brinjal", ta: "உருண்டை கத்தரிக்காய்" },
@@ -520,6 +526,7 @@ export const products = [
     },
   },
   {
+    id: "prod__007",
     categoryId: "cat_vegetables",
     categoryName: { en: "Vegetables", ta: "காய்கறிகள்" },
     name: { en: "Drumstick (Murungakkai)", ta: "முருங்கைக்காய்" },
@@ -605,6 +612,7 @@ export const products = [
     },
   },
   {
+    id: "prod__008",
     categoryId: "cat_vegetables",
     categoryName: { en: "Vegetables", ta: "காய்கறிகள்" },
     name: { en: "Lady's Finger (Bhindi)", ta: "வெண்டைக்காய்" },
@@ -690,6 +698,7 @@ export const products = [
     },
   },
   {
+    id: "prod__009",
     categoryId: "cat_vegetables",
     categoryName: { en: "Vegetables", ta: "காய்கறிகள்" },
     name: { en: "Ash Gourd", ta: "வெண்பூசணி" },
@@ -790,6 +799,7 @@ export const products = [
     },
   },
   {
+    id: "prod__010",
     categoryId: "cat_vegetables",
     categoryName: { en: "Vegetables", ta: "காய்கறிகள்" },
     name: { en: "Ridge Gourd", ta: "பீர்க்கங்காய்" },
@@ -878,6 +888,7 @@ export const products = [
     },
   },
   {
+    id: "prod__011",
     categoryId: "cat_millets",
     categoryName: { en: "Millets", ta: "சிறுதானியங்கள்" },
     name: { en: "Foxtail Millet (Thinai)", ta: "தினை அரிசி" },
@@ -969,6 +980,7 @@ export const products = [
     },
   },
   {
+    id: "prod__012",
     categoryId: "cat_millets",
     categoryName: { en: "Millets", ta: "சிறுதானியங்கள்" },
     name: { en: "Pearl Millet (Kambu)", ta: "கம்பு" },
@@ -1057,6 +1069,7 @@ export const products = [
     },
   },
   {
+    id: "prod__013",
     categoryId: "cat_millets",
     categoryName: { en: "Millets", ta: "சிறுதானியங்கள்" },
     name: { en: "Finger Millet (Ragi)", ta: "கேழ்வரகு (ராகி)" },
@@ -1150,6 +1163,7 @@ export const products = [
     },
   },
   {
+    id: "prod__014",
     categoryId: "cat_millets",
     categoryName: { en: "Millets", ta: "சிறுதானியங்கள்" },
     name: { en: "Little Millet (Samai)", ta: "சாமை அரிசி" },
@@ -1244,6 +1258,7 @@ export const products = [
     },
   },
   {
+    id: "prod__015",
     categoryId: "cat_millets",
     categoryName: { en: "Millets", ta: "சிறுதானியங்கள்" },
     name: {
@@ -1337,6 +1352,7 @@ export const products = [
     },
   },
   {
+    id: "prod__016",
     categoryId: "cat_flours",
     categoryName: { en: "Flours", ta: "மாவு வகைகள்" },
     name: { en: "Sprouted Ragi Flour", ta: "முளைகட்டிய கேழ்வரகு மாவு" },
@@ -1429,6 +1445,7 @@ export const products = [
     },
   },
   {
+    id: "prod__017",
     categoryId: "cat_flours",
     categoryName: { en: "Flours", ta: "மாவு வகைகள்" },
     name: {
@@ -1530,6 +1547,7 @@ export const products = [
     },
   },
   {
+    id: "prod__018",
     categoryId: "cat_flours",
     categoryName: { en: "Flours", ta: "மாவு வகைகள்" },
     name: {
@@ -1619,6 +1637,7 @@ export const products = [
     },
   },
   {
+    id: "prod__019",
     categoryId: "cat_flours",
     categoryName: { en: "Flours", ta: "மாவு வகைகள்" },
     name: { en: "Health Mix (Sathu Maavu)", ta: "பாரம்பரிய சத்து மாவு" },
@@ -1717,6 +1736,7 @@ export const products = [
     },
   },
   {
+    id: "prod__020",
     categoryId: "cat_flours",
     categoryName: { en: "Flours", ta: "மாவு வகைகள்" },
     name: { en: "Samba Wheat Flour", ta: "சம்பா கோதுமை மாவு" },
@@ -1724,6 +1744,9 @@ export const products = [
       en: "Whole Grain Unrefined Flour",
       ta: "முழுமையான பட்டை தீட்டப்படாத கோதுமை மாவு",
     },
+    images: [
+      "https://5.imimg.com/data5/SELLER/Default/2023/4/300999714/TU/NJ/ZI/84627022/khapli-wheat-flour-500x500.jpg",
+    ],
     tags: [
       { en: "High Fiber", ta: "நார்ச்சத்து" },
       { en: "Maida Free", ta: "மைதா அற்றது" },
@@ -1800,6 +1823,7 @@ export const products = [
     },
   },
   {
+    id: "prod__021",
     categoryId: "cat_oil_ghee",
     categoryName: { en: "Oil & Ghee", ta: "எண்ணெய் & நெய்" },
     name: { en: "Wood Pressed Sesame Oil", ta: "மரச்செக்கு நல்லெண்ணெய்" },
@@ -1807,6 +1831,9 @@ export const products = [
       en: "Cold Pressed with Palm Jaggery",
       ta: "கருப்பட்டி சேர்த்து ஆட்டப்பட்ட செக்கு எண்ணெய்",
     },
+    images: [
+      "https://t3.ftcdn.net/jpg/01/62/60/36/360_F_162603681_4HVBzBPuINeZcASVHL4tjvNoOcdJbUAW.jpg",
+    ],
     tags: [
       { en: "Wood Pressed", ta: "மரச்செக்கு" },
       { en: "Unrefined", ta: "சுத்திகரிக்கப்படாதது" },
@@ -1892,6 +1919,7 @@ export const products = [
     },
   },
   {
+    id: "prod__022",
     categoryId: "cat_oil_ghee",
     categoryName: { en: "Oil & Ghee", ta: "எண்ணெய் & நெய்" },
     name: {
@@ -1902,6 +1930,9 @@ export const products = [
       en: "Pure Unrefined Peanut Oil",
       ta: "சுத்தமான செக்கு கடலை எண்ணெய்",
     },
+    images: [
+      "https://dukaan.b-cdn.net/700x700/webp/media/9a7dd050-a754-4cba-8eca-b4bc30761f2a.webp",
+    ],
     tags: [
       { en: "Deep Frying", ta: "வறுக்க ஏற்றது" },
       { en: "Cholesterol Free", ta: "கொலஸ்ட்ரால் அற்றது" },
@@ -1987,6 +2018,7 @@ export const products = [
     },
   },
   {
+    id: "prod__023",
     categoryId: "cat_oil_ghee",
     categoryName: { en: "Oil & Ghee", ta: "எண்ணெய் & நெய்" },
     name: {
@@ -1997,6 +2029,9 @@ export const products = [
       en: "Edible Grade Pure Copra Oil",
       ta: "சமையலுக்கு ஏற்ற சுத்தமான தேங்காய் எண்ணெய்",
     },
+    images: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKJc1rl0WFrOZUZujVcTJHZrvj-spNMeig-xmn2XC8rnoJ9pNJvH_8SN0D&s=10",
+    ],
     tags: [
       { en: "Edible Grade", ta: "சமையல் தரம்" },
       { en: "Hair & Skin", ta: "முடி மற்றும் சருமம்" },
@@ -2082,12 +2117,16 @@ export const products = [
     },
   },
   {
+    id: "prod__024",
     categoryId: "cat_oil_ghee",
     categoryName: { en: "Oil & Ghee", ta: "எண்ணெய் & நெய்" },
     name: {
       en: "Pure Cow Ghee (Bilona Method)",
       ta: "சுத்தமான பசும் நெய்",
     },
+    images: [
+      "https://5.imimg.com/data5/SELLER/Default/2024/7/436164776/XM/TH/ZM/57852237/organic-cow-ghee-500x500.jpeg",
+    ],
     subtitle: {
       en: "Traditional Cultured Butter Ghee",
       ta: "பாரம்பரிய முறையில் காய்ச்சிய நெய்",
@@ -2177,6 +2216,7 @@ export const products = [
     },
   },
   {
+    id: "prod__025",
     categoryId: "cat_oil_ghee",
     categoryName: { en: "Oil & Ghee", ta: "எண்ணெய் & நெய்" },
     name: {
@@ -2187,6 +2227,9 @@ export const products = [
       en: "Cold Pressed for Hair & Health",
       ta: "முடி மற்றும் ஆரோக்கியத்திற்கான செக்கு எண்ணெய்",
     },
+    images: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzpppOpSabDhXKdSuuH67l8vKCGAksZGrIM56BvvK3GE1tGZv4IdizQ-oX&s=10",
+    ],
     tags: [
       { en: "Hair Growth", ta: "முடி வளர்ச்சி" },
       { en: "Body Coolant", ta: "உடல் குளிர்ச்சி" },
@@ -2273,6 +2316,7 @@ export const products = [
   },
 
   {
+    id: "prod__026",
     categoryId: "cat_pickles",
     categoryName: { en: "Pickles & Thokku", ta: "ஊறுகாய் & தொக்கு" },
     name: { en: "Garlic Pickle (Poondu Oorugai)", ta: "பூண்டு ஊறுகாய்" },
@@ -2280,6 +2324,9 @@ export const products = [
       en: "Homemade with Wood Pressed Oil",
       ta: "மரச்செக்கு எண்ணெய் கொண்டு வீட்டில் செய்தது",
     },
+    images: [
+      "https://www.vegrecipesofindia.com/wp-content/uploads/2021/04/garlic-pickle-recipe-1.jpg",
+    ],
     tags: [
       { en: "No Preservatives", ta: "பதப்படுத்திகள் இல்லை" },
       { en: "Homemade", ta: "வீட்டில் செய்தது" },
@@ -2362,6 +2409,7 @@ export const products = [
     },
   },
   {
+    id: "prod__027",
     categoryId: "cat_pickles",
     categoryName: { en: "Pickles & Thokku", ta: "ஊறுகாய் & தொக்கு" },
     name: {
@@ -2372,6 +2420,10 @@ export const products = [
       en: "Traditional South Indian Style",
       ta: "பாரம்பரிய தென்னிந்திய சுவை",
     },
+    images: [
+      "https://rakskitchen.net/wp-content/uploads/2016/05/cut-mango-pickle-500x500.jpg",
+    ],
+    images: [],
     tags: [
       { en: "Spicy", ta: "காரமானது" },
       { en: "Sun Dried", ta: "வெயிலில் உலர்த்தியது" },
@@ -2454,6 +2506,7 @@ export const products = [
     },
   },
   {
+    id: "prod__028",
     categoryId: "cat_pickles",
     categoryName: { en: "Pickles & Thokku", ta: "ஊறுகாய் & தொக்கு" },
     name: {
@@ -2464,6 +2517,9 @@ export const products = [
       en: "Tangy & Matured in Sea Salt",
       ta: "கல் உப்பில் ஊறிய புளிப்பான ஊறுகாய்",
     },
+    images: [
+      "https://static.toiimg.com/thumb/57645740.cms?imgsize=519869&width=800&height=800",
+    ],
     tags: [
       { en: "Oil Free Option Available", ta: "எண்ணெய் இல்லாதது" },
       { en: "Matured", ta: "நன்கு ஊறியது" },
@@ -2549,6 +2605,7 @@ export const products = [
     },
   },
   {
+    id: "prod__029",
     categoryId: "cat_pickles",
     categoryName: { en: "Pickles & Thokku", ta: "ஊறுகாய் & தொக்கு" },
     name: {
@@ -2559,6 +2616,9 @@ export const products = [
       en: "Authentic Andhra Style",
       ta: "பாரம்பரிய ஆந்திரா சுவை",
     },
+    images: [
+      "https://mylaporekitchens.in/cdn/shop/files/357069318_655656469916151_5405744363758971775_n.jpg?v=1688283838",
+    ],
     tags: [
       { en: "Iron Rich", ta: "இரும்புச்சத்து" },
       { en: "Spicy & Tangy", ta: "காரம் & புளிப்பு" },
@@ -2641,6 +2701,7 @@ export const products = [
     },
   },
   {
+    id: "prod__030",
     categoryId: "cat_pickles",
     categoryName: { en: "Pickles & Thokku", ta: "ஊறுகாய் & தொக்கு" },
     name: { en: "Tomato Thokku (Thakkali)", ta: "தக்காளி தொக்கு" },
@@ -2648,6 +2709,9 @@ export const products = [
       en: "Homestyle Country Tomato Relish",
       ta: "நாட்டுத் தக்காளி கொண்டு வீட்டில் செய்தது",
     },
+    images: [
+      "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/08/tomato-thokku-thakkali-thokku.jpg",
+    ],
     tags: [
       { en: "No Preservatives", ta: "பதப்படுத்திகள் இல்லை" },
       { en: "Travel Friendly", ta: "பயணத்திற்கு ஏற்றது" },
@@ -2733,6 +2797,7 @@ export const products = [
     },
   },
   {
+    id: "prod__031",
     categoryId: "cat_dals",
     categoryName: { en: "Dals & Pulses", ta: "பருப்பு வகைகள்" },
     name: {
@@ -2743,6 +2808,9 @@ export const products = [
       en: "Native Red Soil Cultivation",
       ta: "நாட்டு ரகம் - செம்மண் விளைச்சல்",
     },
+    images: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_aW9OOT0AjL3oODBsHOxFkYaSaXuF0DCp20KaNJ9m7bcilcMk0l_x2Es&s=10",
+    ],
     tags: [
       { en: "Unpolished", ta: "பட்டை தீட்டப்படாதது" },
       { en: "Protein Rich", ta: "அதிக புரதம்" },
@@ -2825,6 +2893,7 @@ export const products = [
     },
   },
   {
+    id: "prod__032",
     categoryId: "cat_dals",
     categoryName: { en: "Dals & Pulses", ta: "பருப்பு வகைகள்" },
     name: { en: "Whole Black Urad Dal", ta: "முழு கருப்பு உளுந்து" },
@@ -2832,6 +2901,7 @@ export const products = [
       en: "With Skin - Bone Strengthening",
       ta: "தொலியுடன் கூடிய உளுந்து - எலும்பு பலம்",
     },
+    images: ["https://m.media-amazon.com/images/I/81eUKsofNaL.jpg"],
     tags: [
       { en: "Bone Health", ta: "எலும்பு நலம்" },
       { en: "With Skin", ta: "தொலியுடன்" },
@@ -2908,6 +2978,7 @@ export const products = [
     },
   },
   {
+    id: "prod__033",
     categoryId: "cat_dals",
     categoryName: { en: "Dals & Pulses", ta: "பருப்பு வகைகள்" },
     name: { en: "Green Gram Whole", ta: "பச்சை பயறு" },
@@ -2915,6 +2986,9 @@ export const products = [
       en: "Sproutable Native Green Gram",
       ta: "முளைகட்டக்கூடிய நாட்டு பச்சை பயறு",
     },
+    images: [
+      "https://tiimg.tistatic.com/fp/1/009/557/green-gram-whole-040.jpg",
+    ],
     tags: [
       { en: "Sproutable", ta: "முளைகட்டக்கூடியது" },
       { en: "Easy Digest", ta: "எளிதில் செரிமானமாகும்" },
@@ -3000,6 +3074,7 @@ export const products = [
     },
   },
   {
+    id: "prod__034",
     categoryId: "cat_dals",
     categoryName: { en: "Dals & Pulses", ta: "பருப்பு வகைகள்" },
     name: { en: "Roasted Bengal Gram", ta: "பொட்டுக்கடலை" },
@@ -3007,6 +3082,9 @@ export const products = [
       en: "Crispy Chutney Dal",
       ta: "மொறுமொறுப்பான சட்னி கடலை",
     },
+    images: [
+      "https://www.govindjee.store/cdn/shop/products/chana-sikaroasted-gram-390564.jpg?v=1709970890",
+    ],
     tags: [
       { en: "Ready to eat", ta: "உண்ணத் தயார்" },
       { en: "Low Calorie", ta: "குறைந்த கலோரி" },
@@ -3086,6 +3164,7 @@ export const products = [
     },
   },
   {
+    id: "prod__035",
     categoryId: "cat_dals",
     categoryName: { en: "Dals & Pulses", ta: "பருப்பு வகைகள்" },
     name: { en: "Horse Gram (Kollu)", ta: "கொள்ளு" },
@@ -3093,6 +3172,9 @@ export const products = [
       en: "Fat Burner Miracle Pulse",
       ta: "கொழுப்பை கரைக்கும் அற்புத பயறு",
     },
+    images: [
+      "https://i0.wp.com/shudhmarwadi.com/wp-content/uploads/2025/01/horsegram-1.jpg?fit=850%2C850&ssl=1",
+    ],
     tags: [
       { en: "Weight Loss", ta: "எடை குறைப்பு" },
       { en: "Fat Burner", ta: "கொழுப்பு கரைப்பான்" },
@@ -3176,6 +3258,7 @@ export const products = [
   },
 
   {
+    id: "prod__036",
     categoryId: "cat_jaggery",
     categoryName: {
       en: "Jaggery & Karupatti",
@@ -3185,6 +3268,9 @@ export const products = [
       en: "Palm Jaggery (Karupatti)",
       ta: "பனை வெல்லம் (கருப்பட்டி)",
     },
+    images: [
+      "https://5.imimg.com/data5/SELLER/Default/2025/6/519448255/UC/NB/NW/104695777/palm-jaggery-karupatti.jpg",
+    ],
     subtitle: {
       en: "Pure Udangudi Karupatti",
       ta: "சுத்தமான உடன்குடி கருப்பட்டி",
@@ -3268,6 +3354,7 @@ export const products = [
     },
   },
   {
+    id: "prod__037",
     categoryId: "cat_jaggery",
     categoryName: {
       en: "Jaggery & Karupatti",
@@ -3281,6 +3368,9 @@ export const products = [
       en: "Chemical Free Sweetener",
       ta: "ரசாயனம் கலக்காத இயற்கை இனிப்பு",
     },
+    images: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqWUej8x_zX4yF2nPDvL_hhwdRzcG7VGF3hfUVvZdGHZwyWmYKVQ88lVEk&s=10",
+    ],
     tags: [
       { en: "Chemical Free", ta: "ரசாயனம் அற்றது" },
       { en: "Daily Use", ta: "தினசரி பயன்பாடு" },
@@ -3361,6 +3451,7 @@ export const products = [
   },
 
   {
+    id: "prod__038",
     categoryId: "cat_snacks",
     categoryName: { en: "Organic Snacks", ta: "இயற்கை தின்பண்டங்கள்" },
     name: { en: "Millet Mixture", ta: "சிறுதானிய மிக்சர்" },
@@ -3368,6 +3459,9 @@ export const products = [
       en: "Guilt-free Crispy Snack",
       ta: "ஆரோக்கியமான மாலை நேர சிற்றுண்டி",
     },
+    images: [
+      "https://www.milletmaagicmeal.in/cdn/shop/files/WhatsApp_Image_2024-08-27_at_11.23.32_AM_2.jpg?v=1724751850",
+    ],
     tags: [
       { en: "Maida Free", ta: "மைதா அற்றது" },
       { en: "Wood Pressed Oil", ta: "செக்கு எண்ணெய்" },
@@ -3450,6 +3544,7 @@ export const products = [
     },
   },
   {
+    id: "prod__039",
     categoryId: "cat_snacks",
     categoryName: { en: "Organic Snacks", ta: "இயற்கை தின்பண்டங்கள்" },
     name: { en: "Peanut Candy (Kadalai Mittai)", ta: "கடலை மிட்டாய்" },
@@ -3457,6 +3552,9 @@ export const products = [
       en: "Kovilpatti Style with Jaggery",
       ta: "கோவில்பட்டி சுவையில் கருப்பட்டி மிட்டாய்",
     },
+    images: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIRcWsA32RJIFZwvst96TN9O6jPHlJKBb9zOwCcDzvnN-tkN4jbgnWoyrx&s=10",
+    ],
     tags: [
       { en: "Protein Rich", ta: "அதிக புரதம்" },
       { en: "Iron Rich", ta: "இரும்புச்சத்து" },
@@ -3539,6 +3637,7 @@ export const products = [
     },
   },
   {
+    id: "prod__040",
     categoryId: "cat_snacks",
     categoryName: { en: "Organic Snacks", ta: "இயற்கை தின்பண்டங்கள்" },
     name: { en: "Ragi Murukku", ta: "ராகி முறுக்கு" },
@@ -3546,6 +3645,9 @@ export const products = [
       en: "Crunchy Calcium Rich Snack",
       ta: "மொறுமொறுப்பான கால்சியம் நிறைந்த முறுக்கு",
     },
+    images: [
+      "https://www.sharmispassions.com/wp-content/uploads/2015/10/RagiMurukku.jpg",
+    ],
     tags: [
       { en: "Calcium Rich", ta: "கால்சியம் நிறைந்தது" },
       {
@@ -3631,6 +3733,7 @@ export const products = [
     },
   },
   {
+    id: "prod__041",
     categoryId: "cat_snacks",
     categoryName: { en: "Organic Snacks", ta: "இயற்கை தின்பண்டங்கள்" },
     name: { en: "Kambu Ribbon Pakoda", ta: "கம்பு ரிப்பன் பக்கோடா" },
@@ -3638,6 +3741,9 @@ export const products = [
       en: "Iron Rich Pearl Millet Crisps",
       ta: "இரும்புச்சத்து மிகுந்த கம்பு சிப்ஸ்",
     },
+    images: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-eF4-fLszGU_8saPpk4RmAelcETGFZp_S6644NYgKuuimuPwPixoDid6P&s=10",
+    ],
     tags: [
       { en: "Iron Rich", ta: "இரும்புச்சத்து" },
       { en: "Vegan", ta: "வீகன்" },
@@ -3717,6 +3823,7 @@ export const products = [
     },
   },
   {
+    id: "prod__042",
     categoryId: "cat_snacks",
     categoryName: { en: "Organic Snacks", ta: "இயற்கை தின்பண்டங்கள்" },
     name: { en: "Thinai Laddu (Foxtail Millet Laddu)", ta: "தினை லட்டு" },
@@ -3724,6 +3831,9 @@ export const products = [
       en: "Sweetened with Palm Jaggery",
       ta: "கருப்பட்டி சேர்த்த சுவையான லட்டு",
     },
+    images: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv08TUf7bt2x20LbJ3RqfzhDd0jp6iqbWynjk0LbmRa6EjhUR7kzS63Pc&s=10",
+    ],
     tags: [
       { en: "Refined Sugar Free", ta: "சர்க்கரை அற்றது" },
       { en: "Energy Ball", ta: "ஆற்றல் உருண்டை" },

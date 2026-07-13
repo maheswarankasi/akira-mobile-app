@@ -30,7 +30,7 @@ export default function OnboardingScreen({ navigation }) {
       swiperRef.current.scrollBy(1);
     } else {
       // 2nd slide-la iruntha, Login screen-ku navigate pannu
-      navigation.navigate("Login");
+      navigation.navigate("Home");
     }
   };
 
