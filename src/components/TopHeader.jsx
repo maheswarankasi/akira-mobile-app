@@ -195,7 +195,7 @@ export default function TopHeader({ onTabChange }) {
       </View>
 
       {/* --- Dynamic Search Section --- */}
-      <View
+      {/* <View
         style={[
           styles.bottomSection,
           { backgroundColor: theme.activeSectionBg },
@@ -221,7 +221,7 @@ export default function TopHeader({ onTabChange }) {
             />
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 }
