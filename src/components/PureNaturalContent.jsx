@@ -58,104 +58,114 @@ export default function PureNaturalContent() {
 
   return (
     <View style={styles.container}>
-      {/* 1. Reusable Search Box (onSearch prop வழியாக டேட்டா வரும்) */}
-      <GlobalSearchBox
-        onSearch={handleSearchResults}
-        placeholder="Search for 'Vegetables'"
-      />
+      <ImageBackground
+        source={require("../assets/images/pure-nature-header.webp")}
+        style={styles.bannerBackground}
+        resizeMode="cover"
+      >
+        {/* 1. Reusable Search Box (onSearch prop வழியாக டேட்டா வரும்) */}
+        <GlobalSearchBox
+          onSearch={handleSearchResults}
+          placeholder="Search for 'Vegetables'"
+        />
 
-      {/* 2. Conditional Rendering */}
-      {isSearching ? (
-        <ScrollView
-          style={styles.searchResultsContainer}
-          contentContainerStyle={styles.searchResultsGrid}
-        >
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((item) => (
-              <TouchableOpacity
-                key={item.id}
-                style={[styles.card, { marginBottom: 16 }]}
-                activeOpacity={0.8}
-                onPress={() =>
-                  navigation.navigate("ProductDetails", { productId: item.id })
-                }
-              >
-                <Text
-                  style={styles.cardTitle}
-                  numberOfLines={2}
-                  adjustsFontSizeToFit
+        {/* 2. Conditional Rendering */}
+        {isSearching ? (
+          <ScrollView
+            style={styles.searchResultsContainer}
+            contentContainerStyle={styles.searchResultsGrid}
+          >
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((item) => (
+                <TouchableOpacity
+                  key={item.id}
+                  style={[styles.card, { marginBottom: 16 }]}
+                  activeOpacity={0.8}
+                  onPress={() =>
+                    navigation.navigate("ProductDetailsScreen", {
+                      productId: item.id,
+                    })
+                  }
                 >
-                  {item.name?.en || item.name}
-                </Text>
-                <Image
-                  source={{ uri: item.images ? item.images[0] : item.imageURL }}
-                  style={styles.cardImage}
-                  resizeMode="contain"
-                />
-                <View style={styles.arrowContainer}>
-                  <Ionicons name="chevron-forward" size={14} color="#FFF" />
-                </View>
-              </TouchableOpacity>
-            ))
-          ) : (
-            <Text style={styles.noResultsText}>
-              No products found for "{searchQuery}"
-            </Text>
-          )}
-        </ScrollView>
-      ) : (
-        <ImageBackground
-          source={require("../assets/images/pure-nature-header.webp")}
-          style={styles.bannerBackground}
-          resizeMode="cover"
-        >
-          <View style={styles.spacer} />
+                  <Text
+                    style={styles.cardTitle}
+                    numberOfLines={2}
+                    adjustsFontSizeToFit
+                  >
+                    {item.name?.en || item.name}
+                  </Text>
+                  <Image
+                    source={{
+                      uri: item.images ? item.images[0] : item.imageURL,
+                    }}
+                    style={styles.cardImage}
+                    resizeMode="contain"
+                  />
+                  <View style={styles.arrowContainer}>
+                    <Ionicons name="chevron-forward" size={14} color="#FFF" />
+                  </View>
+                </TouchableOpacity>
+              ))
+            ) : (
+              <Text style={styles.noResultsText}>
+                No products found for "{searchQuery}"
+              </Text>
+            )}
+          </ScrollView>
+        ) : (
+          <View>
+            <View style={styles.spacer} />
 
-          <View style={styles.cardsContainer}>
-            {randomProducts.map((item) => (
-              <TouchableOpacity
-                key={item.id}
-                style={styles.card}
-                activeOpacity={0.8}
-                onPress={() =>
-                  navigation.navigate("ProductDetails", { productId: item.id })
-                }
-              >
-                <Text
-                  style={styles.cardTitle}
-                  numberOfLines={2}
-                  adjustsFontSizeToFit
+            <View style={styles.cardsContainer}>
+              {randomProducts.map((item) => (
+                <TouchableOpacity
+                  key={item.id}
+                  style={styles.card}
+                  activeOpacity={0.8}
+                  onPress={() =>
+                    navigation.navigate("ProductDetailsScreen", {
+                      productId: item.id,
+                    })
+                  }
                 >
-                  {item.name?.en || item.name}
-                </Text>
-                <Image
-                  source={{ uri: item.images ? item.images[0] : item.imageURL }}
-                  style={styles.cardImage}
-                  resizeMode="contain"
-                />
-                <View style={styles.arrowContainer}>
-                  <Ionicons name="chevron-forward" size={14} color="#FFF" />
-                </View>
-              </TouchableOpacity>
-            ))}
-          </View>
+                  <Text
+                    style={styles.cardTitle}
+                    numberOfLines={2}
+                    adjustsFontSizeToFit
+                  >
+                    {item.name?.en || item.name}
+                  </Text>
+                  <Image
+                    source={{
+                      uri: item.images ? item.images[0] : item.imageURL,
+                    }}
+                    style={styles.cardImage}
+                    resizeMode="contain"
+                  />
+                  <View style={styles.arrowContainer}>
+                    <Ionicons name="chevron-forward" size={14} color="#FFF" />
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
 
-          <View style={styles.featuresContainer}>
-            <FeatureItem text="Chemical\nFree" />
-            <View style={styles.divider} />
-            <FeatureItem text="Sustainable\nFarming" />
-            <View style={styles.divider} />
-            <FeatureItem text="Health\nBenefits" />
+            <View style={styles.featuresContainer}>
+              <FeatureItem text={"Chemical\nFree"} />
+              <View style={styles.divider} />
+              <FeatureItem text={"Sustainable\nFarming"} />
+              <View style={styles.divider} />
+              <FeatureItem text={"Health\nBenefits" }/>
+            </View>
           </View>
-        </ImageBackground>
-      )}
+        )}
+      </ImageBackground>
     </View>
   );
 }
 
 const FeatureItem = ({ text }) => (
   <View style={styles.featureItem}>
-    <Ionicons name="checkmark-circle" size={18} color="#A3E635" />
+    <Ionicons name="checkmark-circle" size={30} color="#8DAD62" />
     <Text style={styles.featureText}>{text}</Text>
   </View>
 );
@@ -200,8 +210,8 @@ const styles = StyleSheet.create({
   cardsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
-    // marginTop: "10%",
+    paddingHorizontal: 25,
+    marginTop: "15%",
   },
   card: {
     backgroundColor: "#E8F5E9",
@@ -257,7 +267,7 @@ const styles = StyleSheet.create({
   },
   featureText: {
     color: "#A7F3D0",
-    fontSize: 10,
+    fontSize: 15,
     marginLeft: 5,
     textAlign: "left",
     lineHeight: 14,

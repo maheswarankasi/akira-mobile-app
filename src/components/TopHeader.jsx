@@ -17,8 +17,8 @@ import { LinearGradient } from "expo-linear-gradient"; // புது Import
 const THEMES = {
   pure_natural: {
     headerBg: "#F3F9EE",
-    activeSectionBg: "#058A46",
-    inactiveBorder: "#058A46",
+    activeSectionBg: "#03B75E",
+    inactiveBorder: "#03B75E",
     micIcon: "#EF4444",
   },
   nutri_kitchen: {
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
-    marginBottom: 1,
+    marginBottom: 0,
   },
   tab: {
     flex: 1,
@@ -279,13 +279,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 1.5, // இடது மற்றும் வலது பக்கம் மட்டும் 1.5px அளவு
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
-    // Bottom padding கொடுக்காததால் கீழே பார்டர் வராது
+    borderBottomLeftRadius: 16,  
+    borderBottomRightRadius: 16,
   },
   inactiveInner: {
     flex: 1,
     backgroundColor: "#FFFFFF",
     borderTopLeftRadius: 14.5, // 16px-ல் 1.5px பார்டரை கழித்து வளைவு
     borderTopRightRadius: 14.5,
+    borderBottomLeftRadius: 14.5,  // <-- இதை புதிதாக சேர்க்கவும்
+    borderBottomRightRadius: 14.5,
     justifyContent: "center",
     alignItems: "center",
   },

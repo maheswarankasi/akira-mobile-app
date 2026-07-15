@@ -59,9 +59,9 @@ export default function GlobalSearchBox({
 const styles = StyleSheet.create({
   searchSection: {
     paddingHorizontal: 16,
-    paddingVertical: 16,
-    backgroundColor: "#058A46", // Parent-ன் நிறத்தை எடுத்துக்கொள்ளும்
+    paddingVertical: 16, // Parent-ன் நிறத்தை எடுத்துக்கொள்ளும்
     paddingTop: 16,
+    zIndex: 10
   },
   searchBar: {
     flexDirection: "row",
