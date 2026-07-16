@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { View, ScrollView, StyleSheet, Text } from "react-native";
 import TopHeader from "../components/TopHeader";
 import PureNaturalContent from "../components/PureNaturalContent";
+import ProductCard from "../components/ProductCard";
+import FreshThisMorning from "../components/FreshThisMorning";
 
 export default function HomeScreen() {
   const [currentTab, setCurrentTab] = useState("pure_natural");
@@ -13,11 +15,14 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <TopHeader onTabChange={handleTabChange} />
 
-      <ScrollView style={styles.contentArea}>
+      <ScrollView style={styles.contentArea} showsVerticalScrollIndicator={false}>
+      <TopHeader onTabChange={handleTabChange} />
         {currentTab === "pure_natural" && (
+          <View>
             <PureNaturalContent />
+            <FreshThisMorning />
+          </View>
         )}
 
         {currentTab === "nutri_kitchen" && (
@@ -38,5 +43,5 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FAFAFA" },
-  contentArea: { flex: 1 },
+  contentArea: { flex: 1, },
 });

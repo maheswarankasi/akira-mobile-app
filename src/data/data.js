@@ -26,7 +26,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -112,7 +112,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -204,7 +204,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -287,7 +287,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -376,7 +376,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -463,7 +463,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -536,7 +536,7 @@ export const products = [
       "https://i.pinimg.com/736x/bb/86/0e/bb860ec6cae84b61c769f5df37fe43fe.jpg",
       "https://i.pinimg.com/736x/9c/5d/12/9c5d128183cc4c036e2e8da94aabe00a.jpg",
     ],
-    tags: [{ en: "Iron Rich", ta: "இரும்புச்சத்து" }],
+    tags: [{ en: "Iron Rich", ta: "இரும்புச்சத்து" }, { en: "Nutri Rich", ta: "இரும்புச்சத்து" }],
     variants: [
       {
         weight: { en: "250 g", ta: "250 கிராம்" },
@@ -545,8 +545,15 @@ export const products = [
         discountPercent: 25,
         inStock: true,
       },
+      {
+        weight: { en: "500 g", ta: "500 கிராம்" },
+        price: 60,
+        mrp: 50,
+        discountPercent: 10,
+        inStock: true,
+      },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -635,7 +642,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -724,7 +731,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -822,7 +829,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -914,7 +921,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "no_cold_storage"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -1006,7 +1013,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -1094,7 +1101,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -1189,7 +1196,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "no_cold_storage"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -1286,7 +1293,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -1376,7 +1383,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -1472,7 +1479,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "no_cold_storage"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -1574,7 +1581,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -1661,7 +1668,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -1760,7 +1767,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "no_cold_storage"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -1847,7 +1854,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -1946,7 +1953,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -2045,7 +2052,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "no_cold_storage"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -2144,7 +2151,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -2243,7 +2250,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "no_cold_storage"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -2340,7 +2347,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -2421,7 +2428,7 @@ export const products = [
       ta: "பாரம்பரிய தென்னிந்திய சுவை",
     },
     images: [
-      "https://rakskitchen.net/wp-content/uploads/2016/05/cut-mango-pickle-500x500.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9YeSqJnkFxrtz-Rv0eJrSxAcgEaUTzC5uYK6tt7EUAIq5TcqG8w6SvaA3&s=10",
     ],
     images: [],
     tags: [
@@ -2437,7 +2444,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -2533,7 +2540,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -2632,7 +2639,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -2725,7 +2732,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -2824,7 +2831,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "no_cold_storage"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -2915,7 +2922,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -3002,7 +3009,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -3098,7 +3105,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "no_cold_storage"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -3188,7 +3195,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "farm_fresh"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -3288,7 +3295,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -3384,7 +3391,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "no_cold_storage"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -3475,7 +3482,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -3568,7 +3575,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -3664,7 +3671,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -3757,7 +3764,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "no_cold_storage"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
@@ -3850,7 +3857,7 @@ export const products = [
         inStock: true,
       },
     ],
-    badges: ["100_natural", "fast_delivery"],
+    badges: ["100_natural", "farm_fresh", "fast_delivery", "no_cold_storage"],
     aiNutriInfo: {
       nutritionalProfile: [
         {
