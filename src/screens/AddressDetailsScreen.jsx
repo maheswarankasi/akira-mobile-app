@@ -8,11 +8,14 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
+
+// முந்தைய செஷனில் உருவாக்கிய normalize ஃபங்ஷனை இம்போர்ட் செய்கிறோம்
+import { normalize } from "../utils/responsive";
 
 export default function AddressDetailsScreen({ route, navigation }) {
   const { phoneNumber, addressText, locationData, addressObj } = route.params;
@@ -98,7 +101,7 @@ export default function AddressDetailsScreen({ route, navigation }) {
           onPress={() => navigation.goBack()}
           style={styles.backButton}
         >
-          <Ionicons name="arrow-back" size={24} color="black" />
+          <Ionicons name="arrow-back" size={normalize(24)} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{t("add_address_details")}</Text>
       </View>
@@ -176,9 +179,9 @@ export default function AddressDetailsScreen({ route, navigation }) {
                         ? "briefcase-outline"
                         : "barbell-outline"
                   }
-                  size={16}
+                  size={normalize(16)}
                   color={activeLabel === labelKey ? "#FFF" : "#666"}
-                  style={{ marginRight: 6 }}
+                  style={{ marginRight: normalize(6) }}
                 />
                 <Text
                   style={[
@@ -248,7 +251,7 @@ export default function AddressDetailsScreen({ route, navigation }) {
           <View style={styles.locationSnippet}>
             <Text style={styles.snippetText}>{addressText}</Text>
             <View style={styles.mapThumb}>
-              <Ionicons name="location" size={24} color="#FF2A5F" />
+              <Ionicons name="location" size={normalize(24)} color="#FF2A5F" />
             </View>
           </View>
         </ScrollView>
@@ -274,90 +277,97 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 16,
-    paddingTop: Platform.OS === "android" ? 50 : 20,
-    paddingBottom: 16,
+    paddingHorizontal: normalize(16),
+    paddingTop: Platform.OS === "android" ? normalize(50) : normalize(20),
+    paddingBottom: normalize(16),
     backgroundColor: "#FFF",
   },
-  backButton: { padding: 5, marginRight: 15 },
-  headerTitle: { fontSize: 18, fontWeight: "bold", color: "#000" },
-  scrollContent: { padding: 24, paddingBottom: 100 },
+  backButton: { padding: normalize(5), marginRight: normalize(15) },
+  headerTitle: { fontSize: normalize(18), fontWeight: "bold", color: "#000" },
+  scrollContent: { padding: normalize(24), paddingBottom: normalize(100) },
   sectionTitle: {
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: "bold",
     color: "#000",
-    marginBottom: 12,
-    marginTop: 10,
+    marginBottom: normalize(12),
+    marginTop: normalize(10),
   },
   inputBox: {
     borderWidth: 1,
     borderColor: "#E5E7EB",
-    borderRadius: 10,
-    paddingHorizontal: 16,
-    height: 50,
+    borderRadius: normalize(10),
+    paddingHorizontal: normalize(16),
+    height: normalize(50),
     justifyContent: "center",
-    marginBottom: 12,
+    marginBottom: normalize(12),
     backgroundColor: "#FFF",
   },
-  // Pudhusa Red Border style add pannirukkom:
   inputError: {
-    borderColor: "#EF4444", // Red Color
+    borderColor: "#EF4444",
     borderWidth: 1.5,
   },
-  input: { fontSize: 16, color: "#000" },
-  labelContainer: { flexDirection: "row", flexWrap: "wrap", marginBottom: 20 },
+  input: { fontSize: normalize(16), color: "#000" },
+  labelContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginBottom: normalize(20),
+  },
   labelBadge: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
+    paddingVertical: normalize(8),
+    paddingHorizontal: normalize(16),
+    borderRadius: normalize(20),
     borderWidth: 1,
     borderColor: "#E5E7EB",
-    marginRight: 10,
-    marginBottom: 10,
+    marginRight: normalize(10),
+    marginBottom: normalize(10),
     backgroundColor: "#FFF",
   },
   labelBadgeActive: { backgroundColor: "#0DB481", borderColor: "#0DB481" },
-  labelText: { fontSize: 14, color: "#666" },
+  labelText: { fontSize: normalize(14), color: "#666" },
   labelTextActive: { color: "#FFF", fontWeight: "bold" },
   locationSnippet: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 16,
+    padding: normalize(16),
     backgroundColor: "#FFF",
     borderWidth: 1,
     borderColor: "#E5E7EB",
-    borderRadius: 10,
-    marginTop: 10,
+    borderRadius: normalize(10),
+    marginTop: normalize(10),
   },
   snippetText: {
     flex: 1,
-    fontSize: 13,
+    fontSize: normalize(13),
     color: "#666",
-    lineHeight: 20,
-    marginRight: 10,
+    lineHeight: normalize(20),
+    marginRight: normalize(10),
   },
   mapThumb: {
-    width: 50,
-    height: 50,
+    width: normalize(50),
+    height: normalize(50),
     backgroundColor: "#F3F4F6",
-    borderRadius: 8,
+    borderRadius: normalize(8),
     justifyContent: "center",
     alignItems: "center",
   },
   bottomBar: {
-    padding: 24,
+    padding: normalize(24),
     backgroundColor: "#FAFAFA",
     borderTopWidth: 1,
     borderColor: "#E5E7EB",
   },
   saveButton: {
     backgroundColor: "#0DB481",
-    paddingVertical: 16,
-    borderRadius: 12,
+    paddingVertical: normalize(16),
+    borderRadius: normalize(12),
     alignItems: "center",
   },
-  saveButtonText: { color: "#FFF", fontSize: 16, fontWeight: "bold" },
+  saveButtonText: {
+    color: "#FFF",
+    fontSize: normalize(16),
+    fontWeight: "bold",
+  },
 });

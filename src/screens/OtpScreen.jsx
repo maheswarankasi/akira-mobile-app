@@ -7,12 +7,16 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Keyboard,
+  Platform,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
+import { normalize } from "../utils/responsive"; // உங்களது normalize ஃபங்ஷன்
 
 export default function OtpScreen({ route, navigation }) {
   const { phoneNumber } = route.params;
+  const { t } = useTranslation();
 
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [timer, setTimer] = useState(60); // 60s timer state
@@ -53,8 +57,7 @@ export default function OtpScreen({ route, navigation }) {
     if (enteredOtp === "1234") {
       setIsValidated(true); // 1. Border-ah Green aaka state true pandrom
 
-      // 2. Oru 1 second wait panni thaan Home-ku povom (Appo thaan user green color-ah paka mudiyum)
-      // OtpScreen.jsx la ulla setTimeout kulla:
+      // 2. Oru 1 second wait panni thaan Home-ku povom
       setTimeout(async () => {
         try {
           const currentDate = new Date();
@@ -63,7 +66,6 @@ export default function OtpScreen({ route, navigation }) {
           await AsyncStorage.setItem("userToken", "dummy_token_123");
           await AsyncStorage.setItem("loginExpiry", expiryDate.toString());
 
-          // Home-ku bathila Location screen-ku phone number oda anuppurom
           navigation.reset({
             index: 0,
             routes: [{ name: "Home", params: { phoneNumber } }],
@@ -73,7 +75,7 @@ export default function OtpScreen({ route, navigation }) {
         }
       }, 1000);
     } else {
-      alert("Invalid OTP! Please enter 1234 for testing.");
+      alert(t("invalid_otp_test"));
       setOtp(["", "", "", ""]); // Thappana OTP na box clear pannidum
       inputs.current[0].focus();
     }
@@ -84,8 +86,7 @@ export default function OtpScreen({ route, navigation }) {
       setTimer(60); // Timer thirumba 60 la irunthu start aagum
       setOtp(["", "", "", ""]);
       setIsValidated(false);
-      // Dummy alert for resend SMS
-      alert(`A new OTP has been sent to ${phoneNumber}`);
+      alert(`${t("new_otp_sent_to")} ${phoneNumber}`);
     }
   };
 
@@ -96,16 +97,14 @@ export default function OtpScreen({ route, navigation }) {
           onPress={() => navigation.navigate("Login")}
           style={styles.backButton}
         >
-          <Ionicons name="arrow-back" size={24} color="black" />
+          <Ionicons name="arrow-back" size={normalize(24)} color="black" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>OTP Verification</Text>
+        <Text style={styles.headerTitle}>{t("otp_verification")}</Text>
       </View>
 
       <View style={styles.content}>
-        <Text style={styles.instruction}>
-          You have sent a verification code to
-        </Text>
-        <Text style={styles.phoneNumber}>+91-{phoneNumber}</Text>
+        <Text style={styles.instruction}>{t("sent_code_to")}</Text>
+        <Text style={styles.phoneNumber}>+91 {phoneNumber}</Text>
 
         {/* 4 OTP Input Boxes */}
         <View style={styles.otpContainer}>
@@ -127,16 +126,16 @@ export default function OtpScreen({ route, navigation }) {
 
         {/* Validation Text */}
         {isValidated ? (
-          <Text style={styles.successMessage}>OTP Verified Successfully!</Text>
+          <Text style={styles.successMessage}>{t("otp_verified_success")}</Text>
         ) : (
           <Text style={[styles.successMessage, { color: "transparent" }]}>
             -
-          </Text> // Space preserve panna
+          </Text>
         )}
 
         {/* Resend Timer Section */}
         <View style={styles.resendContainer}>
-          <Text style={styles.resendText}>Didn't get the OTP? </Text>
+          <Text style={styles.resendText}>{t("did_not_get_otp")}</Text>
           <TouchableOpacity onPress={handleResend} disabled={timer > 0}>
             <Text
               style={[
@@ -144,7 +143,7 @@ export default function OtpScreen({ route, navigation }) {
                 { color: timer === 0 ? "#000" : "#A3A3A3" },
               ]}
             >
-              {timer > 0 ? `Resend SMS in ${timer}s` : "Resend SMS"}
+              {timer > 0 ? `${t("resend_sms_in")} ${timer}s` : t("resend_sms")}
             </Text>
           </TouchableOpacity>
         </View>
@@ -154,53 +153,75 @@ export default function OtpScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#FAFAFA" },
+  container: {
+    flex: 1,
+    backgroundColor: "#FAFAFA",
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 16,
-    paddingTop: 60,
-    paddingBottom: 10,
+    paddingHorizontal: normalize(16),
+    paddingTop: Platform.OS === "ios" ? normalize(10) : normalize(60),
+    paddingBottom: normalize(10),
   },
-  backButton: { marginRight: 16 },
-  headerTitle: { fontSize: 18, fontWeight: "bold", color: "#000" },
+  backButton: {
+    marginRight: normalize(16),
+  },
+  headerTitle: {
+    fontSize: normalize(18),
+    fontWeight: "bold",
+    color: "#000",
+  },
   content: {
     flex: 0.5,
-    paddingHorizontal: 24,
-    paddingTop: 40,
+    paddingHorizontal: normalize(24),
+    paddingTop: normalize(40),
     alignItems: "center",
     justifyContent: "center",
   },
-  instruction: { fontSize: 14, color: "#666", marginBottom: 8 },
+  instruction: {
+    fontSize: normalize(14),
+    color: "#666",
+    marginBottom: normalize(8),
+    textAlign: "center",
+  },
   phoneNumber: {
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: "bold",
     color: "#000",
-    marginBottom: 40,
+    marginBottom: normalize(40),
   },
   otpContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "80%",
-    marginBottom: 20,
+    marginBottom: normalize(20),
   },
   otpBox: {
-    width: 50,
-    height: 50,
+    width: normalize(50),
+    height: normalize(50),
     borderWidth: 1.5,
-    borderRadius: 8,
-    fontSize: 24,
+    borderRadius: normalize(8),
+    fontSize: normalize(24),
     textAlign: "center",
     backgroundColor: "#FFF",
     color: "#000",
   },
   successMessage: {
     color: "#03B75E",
-    fontSize: 14,
-    marginBottom: 20,
+    fontSize: normalize(14),
+    marginBottom: normalize(20),
     fontWeight: "500",
   },
-  resendContainer: { flexDirection: "row" },
-  resendText: { color: "#666", fontSize: 14 },
-  resendLink: { fontSize: 14, fontWeight: "bold" },
+  resendContainer: {
+    flexDirection: "row",
+  },
+  resendText: {
+    color: "#666",
+    fontSize: normalize(14),
+  },
+  resendLink: {
+    fontSize: normalize(14),
+    fontWeight: "bold",
+  },
 });

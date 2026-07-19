@@ -4,7 +4,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
@@ -13,6 +12,9 @@ import {
 import Swiper from "react-native-swiper";
 import { useSelector } from "react-redux";
 
+// முந்தைய செஷனில் உருவாக்கிய normalize ஃபங்ஷனை இம்போர்ட் செய்கிறோம்
+import { normalize } from "../utils/responsive";
+
 const { width } = Dimensions.get("window");
 
 export default function OnboardingScreen({ navigation }) {
@@ -20,7 +22,6 @@ export default function OnboardingScreen({ navigation }) {
   const { t } = useTranslation();
 
   const currentLang = useSelector((state) => state.language.language);
-
   const isTamil = currentLang === "ta";
 
   // Swiper-la next poga illa next screen (Login) poga
@@ -64,7 +65,7 @@ export default function OnboardingScreen({ navigation }) {
                 style={styles.nextButton}
                 onPress={() => handleNext(0)}
               >
-                <Text style={styles.nextButtonText}>{t('next')}</Text>
+                <Text style={styles.nextButtonText}>{t("next")}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -80,7 +81,7 @@ export default function OnboardingScreen({ navigation }) {
             <View
               style={[
                 styles.textContainer2,
-                { paddingBottom: isTamil ? "38%" : "53%" },
+                { paddingBottom: isTamil ? "38%" : "53%" }, // Percentage-ஐ அப்படியே வைக்கலாம், Responsive-க்கு நல்லது
               ]}
             >
               <Text
@@ -88,8 +89,9 @@ export default function OnboardingScreen({ navigation }) {
                   styles.title,
                   {
                     color: "#2E7D32",
-                    fontSize: isTamil ? 24 : 40,
-                    lineHeight: isTamil ? 35 : 52,
+                    // மொழிக்கு தகுந்தாற்போல் அளவுகளை Normalize செய்கிறோம்
+                    fontSize: isTamil ? normalize(24) : normalize(40),
+                    lineHeight: isTamil ? normalize(35) : normalize(52),
                   },
                 ]}
               >
@@ -99,10 +101,10 @@ export default function OnboardingScreen({ navigation }) {
                 style={[
                   styles.subtitle,
                   {
-                    paddingHorizontal: 40,
-                    fontSize: isTamil ? 11 : 18,
+                    paddingHorizontal: normalize(40),
+                    fontSize: isTamil ? normalize(11) : normalize(18),
                     textAlign: "center",
-                    lineHeight: isTamil ? 18 : 30,
+                    lineHeight: isTamil ? normalize(18) : normalize(30),
                   },
                 ]}
               >
@@ -154,141 +156,128 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  imageContainer: {
-    height: "45%",
-    width: "100%",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    marginTop: 20,
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-  },
   textContainer1: {
     flex: 1,
-    paddingHorizontal: "24",
-    paddingVertical: "",
+    paddingHorizontal: normalize(24),
     alignItems: "center",
     justifyContent: "flex-end",
-    paddingBottom: "40",
+    paddingBottom: normalize(40),
   },
   textContainer2: {
     flex: 1,
-    paddingHorizontal: "12",
-    paddingVertical: "",
+    paddingHorizontal: normalize(12),
     alignItems: "center",
     justifyContent: "center",
   },
   title: {
-    fontSize: 22,
+    fontSize: normalize(22),
     fontWeight: "bold",
     color: "#000",
     textAlign: "center",
-    marginBottom: 8,
+    marginBottom: normalize(8),
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: normalize(14),
     color: "#555",
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: normalize(20),
   },
   highlightText: {
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: "bold",
     color: "#000",
-    marginBottom: 8,
+    marginBottom: normalize(8),
     textAlign: "center",
   },
   description: {
-    fontSize: 13,
+    fontSize: normalize(13),
     color: "#666",
     textAlign: "center",
-    lineHeight: 20,
+    lineHeight: normalize(20),
   },
   desc2: {
-    paddingTop: 8,
-    fontSize: 13,
+    paddingTop: normalize(8),
+    fontSize: normalize(13),
     color: "#666",
     textAlign: "center",
-    lineHeight: 20,
+    lineHeight: normalize(20),
   },
   greenBox: {
-    padding: 20,
-    borderRadius: 16,
+    padding: normalize(20),
+    borderRadius: normalize(16),
     width: "100%",
-    marginTop: 10,
+    marginTop: normalize(10),
   },
   greenBoxTamil: {
-    padding: 40,
-    borderRadius: 16,
+    padding: normalize(40),
+    borderRadius: normalize(16),
     width: "100%",
     marginTop: 0,
   },
   greenBoxTitle: {
     color: "#FFF",
-    fontSize: 20,
+    fontSize: normalize(20),
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 8,
-    lineHeight: 24,
+    marginBottom: normalize(8),
+    lineHeight: normalize(24),
   },
   greenBoxTitleTamil: {
     color: "#FFF",
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 10,
-    lineHeight: 20,
+    marginBottom: normalize(10),
+    lineHeight: normalize(20),
   },
   greenBoxDesc: {
     color: "#FFF",
-    fontSize: 16,
+    fontSize: normalize(16),
     textAlign: "center",
-    lineHeight: 24,
+    lineHeight: normalize(24),
   },
   greenBoxDescTamil: {
     color: "#FFF",
-    fontSize: 12,
+    fontSize: normalize(12),
     textAlign: "center",
-    lineHeight: 16,
+    lineHeight: normalize(16),
   },
   bottomBar: {
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "center",
-    paddingHorizontal: 24,
-    paddingBottom: 40,
+    paddingHorizontal: normalize(24),
+    paddingBottom: normalize(40),
     width: "100%",
   },
   nextButton: {
     backgroundColor: "#FF2A5F",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 25,
+    paddingVertical: normalize(12),
+    paddingHorizontal: normalize(32),
+    borderRadius: normalize(25),
   },
   nextButtonText: {
     color: "#FFF",
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: "bold",
   },
   inactiveDot: {
     backgroundColor: "#D3D3D3",
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginHorizontal: 4,
+    width: normalize(8),
+    height: normalize(8),
+    borderRadius: normalize(4),
+    marginHorizontal: normalize(4),
   },
   activeDot: {
     backgroundColor: "#FF2A5F",
-    width: 24,
-    height: 8,
-    borderRadius: 4,
-    marginHorizontal: 4,
+    width: normalize(24),
+    height: normalize(8),
+    borderRadius: normalize(4),
+    marginHorizontal: normalize(4),
   },
   paginationStyle: {
-    bottom: 50, // Dots-ah Next button-ku nera alignment pandrathuku
+    bottom: normalize(50), // Dots-ah Next button-ku nera alignment pandrathuku
     justifyContent: "flex-start",
-    left: 24,
+    left: normalize(24),
   },
 });

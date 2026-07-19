@@ -11,17 +11,23 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next"; // Global Translation Hook
 
 import { products } from "../data/data";
-// குளோபல் சர்ச் பாக்ஸை இம்போர்ட் செய்கிறோம்
 import GlobalSearchBox from "./GlobalSearchBox";
+import { normalize } from "../utils/responsive"; // Responsive Helper
 
 const { width } = Dimensions.get("window");
 
 export default function PureNaturalContent() {
   const navigation = useNavigation();
-  const [randomProducts, setRandomProducts] = useState([]);
+  
+  // --- Language & Translation Setup ---
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.includes("ta") ? "ta" : "en";
+  const isTa = lang === "ta";
 
+  const [randomProducts, setRandomProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,17 +40,23 @@ export default function PureNaturalContent() {
     }
   }, []);
 
-  // GlobalSearchBox-ல் இருந்து வரும் Debounced Text-ஐ வைத்து Filter செய்யும் ஃபங்ஷன்
+  // Data Extraction Helper for multi-language object
+  const getLocalText = (textObj) => {
+    if (!textObj) return "";
+    if (typeof textObj === "string") return textObj;
+    return textObj[lang] || textObj.en || "";
+  };
+
+  // Search Filter
   const handleSearchResults = (text) => {
-    setSearchQuery(text); // No results காட்டும்போது டெக்ஸ்ட் தேவைப்படும்
+    setSearchQuery(text); 
 
     if (text.trim().length > 0) {
       setIsSearching(true);
       const lowercasedFilter = text.toLowerCase();
 
       const results = products.filter((item) => {
-        const enName =
-          item.name?.en?.toLowerCase() || item.name?.toLowerCase() || "";
+        const enName = item.name?.en?.toLowerCase() || item.name?.toLowerCase() || "";
         const taName = item.name?.ta || "";
         return enName.includes(lowercasedFilter) || taName.includes(text);
       });
@@ -56,6 +68,18 @@ export default function PureNaturalContent() {
     }
   };
 
+  // --- Dynamic Styles ---
+  const dynamicStyles = {
+    cardTitle: {
+      fontSize: normalize(isTa ? 10 : 10), // தமிழுக்கு ஏற்ற அளவு
+      lineHeight: normalize(isTa ? 16 : 14), // தமிழுக்கு அதிக இடைவெளி
+    },
+    featureText: {
+      fontSize: normalize(isTa ? 12 : 15),
+      lineHeight: normalize(isTa ? 16 : 14),
+    },
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -63,10 +87,10 @@ export default function PureNaturalContent() {
         style={styles.bannerBackground}
         resizeMode="cover"
       >
-        {/* 1. Reusable Search Box (onSearch prop வழியாக டேட்டா வரும்) */}
+        {/* 1. Reusable Search Box */}
         <GlobalSearchBox
           onSearch={handleSearchResults}
-          placeholder="Search for 'Vegetables'"
+          placeholder={t("searchPlaceholder")} // i18n Translation
         />
 
         {/* 2. Conditional Rendering */}
@@ -79,7 +103,7 @@ export default function PureNaturalContent() {
               filteredProducts.map((item) => (
                 <TouchableOpacity
                   key={item.id}
-                  style={[styles.card, { marginBottom: 16 }]}
+                  style={[styles.card, { marginBottom: normalize(16) }]}
                   activeOpacity={0.8}
                   onPress={() =>
                     navigation.navigate("ProductDetailsScreen", {
@@ -88,11 +112,11 @@ export default function PureNaturalContent() {
                   }
                 >
                   <Text
-                    style={styles.cardTitle}
+                    style={[styles.cardTitle, dynamicStyles.cardTitle]}
                     numberOfLines={2}
                     adjustsFontSizeToFit
                   >
-                    {item.name?.en || item.name}
+                    {getLocalText(item.name)}
                   </Text>
                   <Image
                     source={{
@@ -102,13 +126,13 @@ export default function PureNaturalContent() {
                     resizeMode="contain"
                   />
                   <View style={styles.arrowContainer}>
-                    <Ionicons name="chevron-forward" size={14} color="#FFF" />
+                    <Ionicons name="chevron-forward" size={normalize(14)} color="#FFF" />
                   </View>
                 </TouchableOpacity>
               ))
             ) : (
               <Text style={styles.noResultsText}>
-                No products found for "{searchQuery}"
+                {t("noProducts")} "{searchQuery}"
               </Text>
             )}
           </ScrollView>
@@ -129,11 +153,11 @@ export default function PureNaturalContent() {
                   }
                 >
                   <Text
-                    style={styles.cardTitle}
+                    style={[styles.cardTitle, dynamicStyles.cardTitle]}
                     numberOfLines={2}
                     adjustsFontSizeToFit
                   >
-                    {item.name?.en || item.name}
+                    {getLocalText(item.name)}
                   </Text>
                   <Image
                     source={{
@@ -143,18 +167,18 @@ export default function PureNaturalContent() {
                     resizeMode="contain"
                   />
                   <View style={styles.arrowContainer}>
-                    <Ionicons name="chevron-forward" size={14} color="#FFF" />
+                    <Ionicons name="chevron-forward" size={normalize(14)} color="#FFF" />
                   </View>
                 </TouchableOpacity>
               ))}
             </View>
 
             <View style={styles.featuresContainer}>
-              <FeatureItem text={"Chemical\nFree"} />
+              <FeatureItem text={t("chemFree")} textStyle={dynamicStyles.featureText} />
               <View style={styles.divider} />
-              <FeatureItem text={"Sustainable\nFarming"} />
+              <FeatureItem text={t("sustainable")} textStyle={dynamicStyles.featureText} />
               <View style={styles.divider} />
-              <FeatureItem text={"Health\nBenefits" }/>
+              <FeatureItem text={t("healthBen")} textStyle={dynamicStyles.featureText} />
             </View>
           </View>
         )}
@@ -163,91 +187,92 @@ export default function PureNaturalContent() {
   );
 }
 
-const FeatureItem = ({ text }) => (
+// Sub-component for features
+const FeatureItem = ({ text, textStyle }) => (
   <View style={styles.featureItem}>
-    <Ionicons name="checkmark-circle" size={30} color="#8DAD62" />
-    <Text style={styles.featureText}>{text}</Text>
+    <Ionicons name="checkmark-circle" size={normalize(30)} color="#8DAD62" />
+    <Text style={[styles.featureText, textStyle]}>{text}</Text>
   </View>
 );
 
+// --- Responsive Styles ---
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#058A46",
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
+    borderBottomLeftRadius: normalize(24),
+    borderBottomRightRadius: normalize(24),
     overflow: "hidden",
-    marginTop: -2,
+    marginTop: normalize(-2),
     zIndex: -2,
     width: "100%",
   },
   searchResultsContainer: {
     backgroundColor: "#F3F9EE",
-    minHeight: 400,
-    paddingTop: 20,
+    minHeight: normalize(400),
+    paddingTop: normalize(20),
   },
   searchResultsGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-evenly",
-    paddingHorizontal: 10,
-    paddingBottom: 20,
+    paddingHorizontal: normalize(10),
+    paddingBottom: normalize(20),
   },
   noResultsText: {
     textAlign: "center",
-    marginTop: 40,
-    fontSize: 16,
+    marginTop: normalize(40),
+    fontSize: normalize(16),
     color: "#4B5563",
     width: "100%",
   },
   bannerBackground: {
     width: "100%",
-    minHeight: 400,
+    minHeight: normalize(400),
   },
   spacer: {
-    height: 180,
+    height: normalize(180),
   },
   cardsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 25,
+    paddingHorizontal: normalize(25),
     marginTop: "15%",
   },
   card: {
     backgroundColor: "#E8F5E9",
-    width: (width - 48) / 3.5,
+    width: (width - normalize(48)) / 3.5,
     aspectRatio: 0.7,
-    borderRadius: 12,
-    padding: 8,
+    borderRadius: normalize(12),
+    padding: normalize(8),
     alignItems: "center",
     position: "relative",
     elevation: 3,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: normalize(2) },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: normalize(4),
   },
   cardTitle: {
-    fontSize: 10,
     fontWeight: "700",
     color: "#058A46",
     textAlign: "center",
-    marginBottom: 8,
-    height: 28,
+    marginBottom: normalize(8),
+    height: normalize(32),
   },
   cardImage: {
     width: "90%",
     height: "45%",
-    borderRadius: 50,
+    borderRadius: normalize(50),
   },
   arrowContainer: {
     position: "absolute",
-    bottom: 10,
-    right: 6,
+    bottom: normalize(10),
+    right: normalize(6),
     backgroundColor: "#111827",
-    borderRadius: 12,
-    width: 20,
-    height: 20,
+    borderRadius: normalize(12),
+    width: normalize(20),
+    height: normalize(20),
     justifyContent: "center",
     alignItems: "center",
   },
@@ -255,9 +280,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 32,
-    marginBottom: 24,
-    paddingHorizontal: 16,
+    marginTop: normalize(32),
+    marginBottom: normalize(24),
+    paddingHorizontal: normalize(16),
   },
   featureItem: {
     flexDirection: "row",
@@ -267,14 +292,12 @@ const styles = StyleSheet.create({
   },
   featureText: {
     color: "#A7F3D0",
-    fontSize: 15,
-    marginLeft: 5,
+    marginLeft: normalize(5),
     textAlign: "left",
-    lineHeight: 14,
   },
   divider: {
     width: 1,
-    height: 24,
+    height: normalize(24),
     backgroundColor: "#A7F3D0",
     opacity: 0.4,
   },

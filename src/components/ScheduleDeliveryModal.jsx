@@ -58,7 +58,8 @@ export default function ScheduleDeliveryModal({ visible, onClose, onSuccess }) {
         dates.push({
           id: i,
           dayLabel,
-          dateString: `${nextDate.getDate()} ${monthNames[nextDate.getMonth()]}`,
+          // தேதியை "24-Jul" என்ற வடிவத்தில் மாற்றுகிறோம்
+          dateString: `${nextDate.getDate()}-${monthNames[nextDate.getMonth()]}`,
           fullDate: nextDate.toISOString()
         });
       }
@@ -85,8 +86,14 @@ export default function ScheduleDeliveryModal({ visible, onClose, onSuccess }) {
       return;
     }
     
+    const selectedDateObj = scheduleDates[selectedDateIndex];
+
     const scheduleData = {
-      date: scheduleDates[selectedDateIndex],
+      date: {
+        ...selectedDateObj,
+        // Cart Screen-ல் "Tomorrow" என்று காட்டாமல் "24-Jul" என்றே காட்ட இதை மாற்றுகிறோம்
+        dayLabel: selectedDateObj.dateString 
+      },
       time: selectedTimeSlot
     };
     

@@ -3,14 +3,24 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../store/cartSlice';
 
 export default function ProductCard({ product }) {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const { i18n } = useTranslation();
   const lang = i18n.language?.includes('ta') ? 'ta' : 'en';
 
+  const cartItem = useSelector((state) => state.cart.items.find(item => item.product.id === product.id));
+  const cartQuantity = cartItem ? cartItem.quantity : 0;
+
+  const handleAdd = () => dispatch(addToCart({ product, quantity: 1 }));
+  const handleIncrement = () => dispatch(updateQuantity({ productId: product.id, quantity: cartQuantity + 1 }));
+  const handleDecrement = () => dispatch(updateQuantity({ productId: product.id, quantity: cartQuantity - 1 }));
+
   // Local Cart State (Cart ஸ்கிரீன் வரும் வரை தற்காலிகமாக)
-  const [cartQuantity, setCartQuantity] = useState(0);
+  // const [cartQuantity, setCartQuantity] = useState(0);
 
   // Data Extraction Helper
   const getLocalText = (textObj) => {
@@ -45,9 +55,9 @@ export default function ProductCard({ product }) {
   };
 
   // Cart Handlers
-  const handleAdd = () => setCartQuantity(1);
-  const handleIncrement = () => setCartQuantity(prev => prev + 1);
-  const handleDecrement = () => setCartQuantity(prev => Math.max(0, prev - 1));
+  // const handleAdd = () => setCartQuantity(1);
+  // const handleIncrement = () => setCartQuantity(prev => prev + 1);
+  // const handleDecrement = () => setCartQuantity(prev => Math.max(0, prev - 1));
 
   return (
     <View style={styles.cardContainer}>

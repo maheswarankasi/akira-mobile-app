@@ -1,33 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  Image, 
-  TouchableOpacity 
-} from 'react-native';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
-import { products } from '../data/data';
+// --- Redux Imports ---
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, updateQuantity } from "../store/cartSlice";
+
+import { products } from "../data/data";
 
 // --- மொழிபெயர்ப்புகள் ---
 const TRANSLATIONS = {
-  en: { title: "Fresh this morning", add: "ADD", aiInfo: "AI Nutritional Info" },
-  ta: { title: "இன்றைய புதிய வரவுகள்", add: "சேர்", aiInfo: "AI ஊட்டச்சத்து" }
+  en: {
+    title: "Fresh this morning",
+    add: "ADD",
+    aiInfo: "AI Nutritional Info",
+  },
+  ta: { title: "இன்றைய புதிய வரவுகள்", add: "சேர்", aiInfo: "AI ஊட்டச்சத்து" },
 };
 
-// --- Single Product Card Component (For individual Cart State) ---
+// --- Single Product Card Component ---
 const FreshProductCard = ({ product, t, lang }) => {
   const navigation = useNavigation();
-  const [cartQuantity, setCartQuantity] = useState(0);
+  const dispatch = useDispatch();
+
+  // Redux-ல் இருந்து இந்த பொருளுக்கான Cart Quantity-ஐ எடுக்கிறோம்
+  const cartItem = useSelector((state) =>
+    state.cart.items.find((item) => item.product.id === product.id),
+  );
+  const cartQuantity = cartItem ? cartItem.quantity : 0;
 
   const getLocalText = (textObj) => {
-    if (!textObj) return '';
-    if (typeof textObj === 'string') return textObj;
-    return textObj[lang] || textObj.en || '';
+    if (!textObj) return "";
+    if (typeof textObj === "string") return textObj;
+    return textObj[lang] || textObj.en || "";
   };
 
   const productName = getLocalText(product.name);
@@ -35,27 +49,41 @@ const FreshProductCard = ({ product, t, lang }) => {
   const variant = product.variants?.[0] || {};
   const price = variant.price || 0;
   const mrp = variant.mrp || 0;
-  const discount = variant.discountPercent ? `${variant.discountPercent}%\nOFF` : (variant.discount || '');
+  const discount = variant.discountPercent
+    ? `${variant.discountPercent}%\nOFF`
+    : variant.discount || "";
 
-  // Handlers
+  // --- Handlers ---
   const handleImageClick = () => {
     navigation.navigate("ProductDetailsScreen", { productId: product.id });
   };
 
   const handleAiInfoClick = () => {
-    navigation.navigate("ProductDetailsScreen", { 
-      productId: product.id, 
-      initialTab: 'ai_nutri_info' 
+    navigation.navigate("ProductDetailsScreen", {
+      productId: product.id,
+      initialTab: "ai_nutri_info",
     });
   };
 
-  const handleAdd = () => setCartQuantity(1);
-  const handleIncrement = () => setCartQuantity(prev => prev + 1);
-  const handleDecrement = () => setCartQuantity(prev => Math.max(0, prev - 1));
+  // Redux Cart Actions
+  const handleAdd = () => {
+    dispatch(addToCart({ product, quantity: 1 }));
+  };
+
+  const handleIncrement = () => {
+    dispatch(
+      updateQuantity({ productId: product.id, quantity: cartQuantity + 1 }),
+    );
+  };
+
+  const handleDecrement = () => {
+    dispatch(
+      updateQuantity({ productId: product.id, quantity: cartQuantity - 1 }),
+    );
+  };
 
   return (
     <View style={styles.card}>
-      
       {/* Discount Ribbon (Top Right) */}
       {discount ? (
         <View style={styles.discountRibbon}>
@@ -64,12 +92,22 @@ const FreshProductCard = ({ product, t, lang }) => {
       ) : null}
 
       {/* Image Area */}
-      <TouchableOpacity activeOpacity={0.9} onPress={handleImageClick} style={styles.imageContainer}>
-        <Image source={{ uri: imageUrl }} style={styles.image} resizeMode="contain" />
+      <TouchableOpacity
+        activeOpacity={0.9}
+        onPress={handleImageClick}
+        style={styles.imageContainer}
+      >
+        <Image
+          source={{ uri: imageUrl }}
+          style={styles.image}
+          resizeMode="contain"
+        />
       </TouchableOpacity>
 
       {/* Product Name */}
-      <Text style={styles.productName} numberOfLines={1}>{productName}</Text>
+      <Text style={styles.productName} numberOfLines={1}>
+        {productName}
+      </Text>
 
       {/* Price & Add Button Row */}
       <View style={styles.priceAddRow}>
@@ -78,17 +116,32 @@ const FreshProductCard = ({ product, t, lang }) => {
           {mrp > 0 && <Text style={styles.mrp}>₹{mrp}</Text>}
         </View>
 
+        {/* Cart Quantity-ஐ பொறுத்து UI மாறும் */}
         {cartQuantity === 0 ? (
-          <TouchableOpacity style={styles.addBtnOutline} onPress={handleAdd}>
+          <TouchableOpacity
+            style={styles.addBtnOutline}
+            onPress={handleAdd}
+            activeOpacity={0.7}
+          >
             <Text style={styles.addBtnText}>{t.add}</Text>
           </TouchableOpacity>
         ) : (
           <View style={styles.qtyContainer}>
-            <TouchableOpacity style={styles.qtyBtn} onPress={handleDecrement}>
+            <TouchableOpacity
+              style={styles.qtyBtn}
+              onPress={handleDecrement}
+              activeOpacity={0.7}
+            >
               <Ionicons name="remove" size={16} color="#FFF" />
             </TouchableOpacity>
+
             <Text style={styles.qtyText}>{cartQuantity}</Text>
-            <TouchableOpacity style={styles.qtyBtn} onPress={handleIncrement}>
+
+            <TouchableOpacity
+              style={styles.qtyBtn}
+              onPress={handleIncrement}
+              activeOpacity={0.7}
+            >
               <Ionicons name="add" size={16} color="#FFF" />
             </TouchableOpacity>
           </View>
@@ -96,12 +149,20 @@ const FreshProductCard = ({ product, t, lang }) => {
       </View>
 
       {/* AI Nutritional Info Bottom Banner */}
-      <TouchableOpacity style={styles.aiBanner} activeOpacity={0.7} onPress={handleAiInfoClick}>
+      <TouchableOpacity
+        style={styles.aiBanner}
+        activeOpacity={0.7}
+        onPress={handleAiInfoClick}
+      >
         <MaterialCommunityIcons name="magic-staff" size={14} color="#058A46" />
         <Text style={styles.aiBannerText}>{t.aiInfo}</Text>
-        <Ionicons name="chevron-forward" size={12} color="#058A46" style={{ marginLeft: 2 }} />
+        <Ionicons
+          name="chevron-forward"
+          size={12}
+          color="#058A46"
+          style={{ marginLeft: 2 }}
+        />
       </TouchableOpacity>
-
     </View>
   );
 };
@@ -109,7 +170,7 @@ const FreshProductCard = ({ product, t, lang }) => {
 // --- Main Carousel Component ---
 export default function FreshThisMorning() {
   const { i18n } = useTranslation();
-  const lang = i18n.language?.includes('ta') ? 'ta' : 'en';
+  const lang = i18n.language?.includes("ta") ? "ta" : "en";
   const t = TRANSLATIONS[lang];
 
   const [randomProducts, setRandomProducts] = useState([]);
@@ -117,13 +178,14 @@ export default function FreshThisMorning() {
   useEffect(() => {
     if (products && products.length > 0) {
       // 1. Fruits மற்றும் Vegetables Category-ஐ மட்டும் Filter செய்கிறோம்
-      const filtered = products.filter(p => 
-        p.categoryId === 'cat_fruits' || 
-        p.categoryId === 'cat_vegetables' || 
-        p.category === 'fruits' || 
-        p.category === 'vegetables'
+      const filtered = products.filter(
+        (p) =>
+          p.categoryId === "cat_fruits" ||
+          p.categoryId === "cat_vegetables" ||
+          p.category === "fruits" ||
+          p.category === "vegetables",
       );
-      
+
       // 2. Shuffle செய்து முதல் 5 Items-ஐ எடுக்கிறோம்
       const shuffled = [...filtered].sort(() => 0.5 - Math.random());
       setRandomProducts(shuffled.slice(0, 5));
@@ -134,23 +196,24 @@ export default function FreshThisMorning() {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.sectionTitle, lang === 'ta' && { fontSize: 16 }]}>
+      <Text style={[styles.sectionTitle, lang === "ta" && { fontSize: 16 }]}>
         {t.title}
       </Text>
-      
-      <ScrollView 
-        horizontal 
+
+      <ScrollView
+        horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        {randomProducts.map(product => (
-          <FreshProductCard 
-            key={product.id} 
-            product={product} 
-            t={t} 
-            lang={lang} 
+        {randomProducts.map((product) => (
+          <FreshProductCard
+            key={product.id}
+            product={product}
+            t={t}
+            lang={lang}
           />
         ))}
+       
       </ScrollView>
     </View>
   );
@@ -163,38 +226,38 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#111827',
+    fontWeight: "bold",
+    color: "#111827",
     paddingHorizontal: 16,
     marginBottom: 16,
   },
   scrollContent: {
     paddingHorizontal: 16,
-    gap: 16, // Cards-க்கு நடுவில் இடைவெளி (React Native 0.71+)
+    gap: 16,
   },
-  
+
   // --- Card Styles ---
   card: {
-    width: 170, // Carousel-ல் அடுத்த Card லேசாக தெரியும்படி அளவிடப்பட்டுள்ளது
-    backgroundColor: '#FFF',
+    width: 170,
+    backgroundColor: "#FFF",
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#F3F4F6',
-    position: 'relative',
-    shadowColor: '#000',
+    borderColor: "#F3F4F6",
+    position: "relative",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
-    marginRight: 16, // Fallback for gap
+    marginRight: 16,
   },
 
-  // Discount Ribbon (Top Right)
+  // Discount Ribbon
   discountRibbon: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     right: 12,
-    backgroundColor: '#FF3B30', // Red shape
+    backgroundColor: "#FF3B30",
     paddingHorizontal: 6,
     paddingVertical: 6,
     borderBottomLeftRadius: 4,
@@ -202,110 +265,110 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   discountText: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: 10,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     lineHeight: 12,
   },
 
   // Image Area
   imageContainer: {
-    width: '100%',
+    width: "100%",
     height: 120,
     marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   image: {
-    width: '80%',
-    height: '80%',
+    width: "80%",
+    height: "80%",
   },
 
   // Details Area
   productName: {
     fontSize: 14,
-    fontWeight: '700',
-    color: '#111827',
-    textAlign: 'center',
+    fontWeight: "700",
+    color: "#111827",
+    textAlign: "center",
     marginTop: 12,
     marginBottom: 16,
     paddingHorizontal: 8,
   },
   priceAddRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 12,
     marginBottom: 16,
   },
   priceCol: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
+    flexDirection: "row",
+    alignItems: "baseline",
   },
   price: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#111827',
+    fontWeight: "bold",
+    color: "#111827",
   },
   mrp: {
     fontSize: 12,
-    color: '#9CA3AF',
-    textDecorationLine: 'line-through',
+    color: "#9CA3AF",
+    textDecorationLine: "line-through",
     marginLeft: 4,
   },
 
   // Add & Qty Buttons
   addBtnOutline: {
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     borderWidth: 1.5,
-    borderColor: '#058A46',
+    borderColor: "#058A46",
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 6,
   },
   addBtnText: {
-    color: '#058A46',
-    fontWeight: 'bold',
+    color: "#058A46",
+    fontWeight: "bold",
     fontSize: 13,
   },
   qtyContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#058A46',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#058A46",
     borderRadius: 8,
     height: 32,
     paddingHorizontal: 4,
   },
   qtyBtn: {
     paddingHorizontal: 8,
-    height: '100%',
-    justifyContent: 'center',
+    height: "100%",
+    justifyContent: "center",
   },
   qtyText: {
-    color: '#FFF',
-    fontWeight: 'bold',
+    color: "#FFF",
+    fontWeight: "bold",
     fontSize: 13,
     minWidth: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
 
   // Bottom AI Banner
   aiBanner: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F0FDF4', // Light Mint Green
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F0FDF4",
     paddingVertical: 10,
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
     borderTopWidth: 1,
-    borderTopColor: '#E5E7EB',
+    borderTopColor: "#E5E7EB",
   },
   aiBannerText: {
-    color: '#058A46',
+    color: "#058A46",
     fontSize: 11,
-    fontWeight: '600',
+    fontWeight: "600",
     marginLeft: 4,
   },
 });
