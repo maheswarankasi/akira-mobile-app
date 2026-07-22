@@ -255,7 +255,7 @@ export default function CartScreen() {
           {/* Add More Items Button */}
           <TouchableOpacity
             style={styles.addMoreBtn}
-            onPress={() => navigation.navigate("HomeScreen")}
+            onPress={() => navigation.navigate("AllCategoriesScreen")}
           >
             <Ionicons name="add" size={normalize(18)} color="#FF204E" />
             <Text style={styles.addMoreText}>

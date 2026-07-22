@@ -25,6 +25,7 @@ import { store } from "./src/store/store";
 import { setCart } from "./src/store/cartSlice"; // <-- இது மிஸ்ஸிங்
 import AsyncStorage from "@react-native-async-storage/async-storage"; // <-- இதுவும் மிஸ்ஸிங்
 import AllCategoriesScreen from "./src/screens/AllCategoriesScreen";
+import MainTabNavigator from "./src/navigations/MainTabNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -107,7 +108,7 @@ function MainApp() {
             {/* Main Flow */}
             <Stack.Screen
               name="Home"
-              component={HomeScreen}
+              component={MainTabNavigator}
               options={{ headerShown: false }}
             />
             <Stack.Screen
@@ -130,7 +131,7 @@ function MainApp() {
           <>
             <Stack.Screen
               name="Home"
-              component={HomeScreen}
+              component={MainTabNavigator}
               options={{ headerShown: false }}
             />
             <Stack.Screen

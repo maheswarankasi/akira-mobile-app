@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,15 +6,14 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
   Platform,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context"; // Updated safe-area import
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
-// உங்களது Data, Cart Actions மற்றும் Components-ஐ Import செய்யவும்
 import { products } from "../data/data";
 import { addToCart, updateQuantity } from "../store/cartSlice";
 import GlobalCartBanner from "../components/GlobalCartBanner";
@@ -25,7 +24,6 @@ const CategoryProductCard = ({ product, lang, t }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  // Redux Cart State
   const cartItem = useSelector((state) =>
     state.cart.items.find((item) => item.product.id === product.id),
   );
@@ -42,12 +40,10 @@ const CategoryProductCard = ({ product, lang, t }) => {
   const imageUrl = product.images?.[0] || product.imageURL;
   const variant = product.variants?.[0] || {};
 
-  // Navigation Handler
   const handleProductClick = () => {
     navigation.navigate("ProductDetailsScreen", { productId: product.id });
   };
 
-  // Cart Handlers
   const handleAdd = () => dispatch(addToCart({ product, quantity: 1 }));
   const handleIncrement = () =>
     dispatch(
@@ -60,7 +56,6 @@ const CategoryProductCard = ({ product, lang, t }) => {
 
   return (
     <View style={styles.productCard}>
-      {/* Image Area with Overlay Button */}
       <TouchableOpacity
         activeOpacity={0.9}
         onPress={handleProductClick}
@@ -72,7 +67,6 @@ const CategoryProductCard = ({ product, lang, t }) => {
           resizeMode="contain"
         />
 
-        {/* Overlapping ADD / Qty Button */}
         <View style={styles.addBtnContainer}>
           {cartQuantity === 0 ? (
             <TouchableOpacity
@@ -109,15 +103,11 @@ const CategoryProductCard = ({ product, lang, t }) => {
         onPress={handleProductClick}
         style={styles.productDetails}
       >
-        {/* Weight */}
         <Text style={styles.productWeight}>{getLocalText(variant.weight)}</Text>
-
-        {/* Name */}
         <Text style={styles.productName} numberOfLines={2}>
           {productName}
         </Text>
 
-        {/* Discount */}
         {variant.discountPercent ? (
           <Text style={styles.productDiscount}>
             {variant.discountPercent}% OFF
@@ -126,7 +116,6 @@ const CategoryProductCard = ({ product, lang, t }) => {
           <Text style={styles.productDiscount}> </Text>
         )}
 
-        {/* Pricing */}
         <View style={styles.priceRow}>
           <Text style={styles.productPrice}>₹{variant.price}</Text>
           {variant.mrp ? (
@@ -134,13 +123,11 @@ const CategoryProductCard = ({ product, lang, t }) => {
           ) : null}
         </View>
 
-        {/* Subtitle / Desc */}
         <Text style={styles.productDesc} numberOfLines={2}>
           {subtitle}
         </Text>
       </TouchableOpacity>
 
-      {/* AI Nutritional Info Bottom Banner */}
       <TouchableOpacity
         style={styles.aiBanner}
         activeOpacity={0.7}
@@ -173,10 +160,13 @@ const CategoryProductCard = ({ product, lang, t }) => {
 // --- Main Screen Component ---
 export default function AllCategoriesScreen() {
   const navigation = useNavigation();
+  const route = useRoute(); // <-- Puthusu
   const { i18n } = useTranslation();
   const lang = i18n.language?.includes("ta") ? "ta" : "en";
 
-  // 1. Unique Categories-ஐ Data-விலிருந்து பிரித்தெடுத்தல்
+  // Home Screen-ல் இருந்து வரும் Category ID
+  const { initialCategory } = route.params || {};
+
   const categories = useMemo(() => {
     const map = new Map();
     products.forEach((p) => {
@@ -184,7 +174,6 @@ export default function AllCategoriesScreen() {
         map.set(p.categoryId, {
           id: p.categoryId,
           name: p.categoryName,
-          // Category-க்கு ஐகான் இல்லாததால் முதல் பொருளின் இமேஜை பயன்படுத்துகிறோம்
           image: p.images?.[0] || "",
         });
       }
@@ -192,9 +181,17 @@ export default function AllCategoriesScreen() {
     return Array.from(map.values());
   }, []);
 
+  // initialCategory இருந்தால் அதை செட் செய்ய வேண்டும், இல்லையென்றால் முதல் Category.
   const [selectedCategory, setSelectedCategory] = useState(
-    categories[0]?.id || null,
+    initialCategory || categories[0]?.id || null,
   );
+
+  // ஒருவேளை திரைக்கு வரும்போதெல்லாம் Params மாறினால் அப்டேட் செய்ய
+  useEffect(() => {
+    if (initialCategory) {
+      setSelectedCategory(initialCategory);
+    }
+  }, [initialCategory]);
 
   const getLocalText = (textObj) => {
     if (!textObj) return "";
@@ -202,14 +199,12 @@ export default function AllCategoriesScreen() {
     return textObj[lang] || textObj.en || "";
   };
 
-  // 2. செலக்ட் செய்யப்பட்ட Category-க்கு ஏற்ப Products-ஐ Filter செய்தல்
   const filteredProducts = useMemo(() => {
     return products.filter((p) => p.categoryId === selectedCategory);
   }, [selectedCategory]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <TouchableOpacity
@@ -235,9 +230,7 @@ export default function AllCategoriesScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Main Content Layout */}
       <View style={styles.mainLayout}>
-        {/* Left Sidebar - Categories */}
         <View style={styles.sidebar}>
           <FlatList
             data={categories}
@@ -281,7 +274,6 @@ export default function AllCategoriesScreen() {
           />
         </View>
 
-        {/* Right Content - Products Grid */}
         <View style={styles.rightContent}>
           <FlatList
             data={filteredProducts}
@@ -297,7 +289,6 @@ export default function AllCategoriesScreen() {
         </View>
       </View>
 
-      {/* Global Cart Banner Overlay */}
       <View style={styles.bottomFixedContainer}>
         <GlobalCartBanner />
       </View>
@@ -306,219 +297,203 @@ export default function AllCategoriesScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: "#FFF" },
-
-  // Header
+  safeArea: { flex: 1, backgroundColor: '#FFF' },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: normalize(16),
-    paddingTop: Platform.OS === "ios" ? normalize(20) : normalize(40),
+    paddingTop: Platform.OS === 'ios' ? normalize(10) : normalize(30),
     paddingBottom: normalize(12),
     borderBottomWidth: 1,
-    borderBottomColor: "#F3F4F6",
+    borderBottomColor: '#F3F4F6',
   },
-  headerLeft: { flexDirection: "row", alignItems: "center" },
+  headerLeft: { flexDirection: 'row', alignItems: 'center' },
   backBtn: { marginRight: normalize(12) },
-  headerTitle: {
-    fontSize: normalize(18),
-    fontWeight: "bold",
-    color: "#111827",
-  },
+  headerTitle: { fontSize: normalize(18), fontWeight: 'bold', color: '#111827' },
   searchBtn: { padding: normalize(4) },
-
-  // Layout
-  mainLayout: { flex: 1, flexDirection: "row" },
-
-  // Sidebar
+  mainLayout: { flex: 1, flexDirection: 'row' },
   sidebar: {
     width: normalize(85),
-    backgroundColor: "#F9FAFB",
+    backgroundColor: '#F9FAFB',
     borderRightWidth: 1,
-    borderRightColor: "#E5E7EB",
+    borderRightColor: '#E5E7EB',
   },
   sidebarContent: { paddingVertical: normalize(16) },
   categoryItem: {
-    alignItems: "center",
+    alignItems: 'center',
     paddingVertical: normalize(12),
     paddingHorizontal: normalize(8),
     borderLeftWidth: 3,
-    borderLeftColor: "transparent", // Default hidden border
+    borderLeftColor: 'transparent',
   },
   categoryItemSelected: {
-    borderLeftColor: "#058A46",
-    backgroundColor: "#FFF",
+    borderLeftColor: '#058A46',
+    backgroundColor: '#FFF',
   },
   categoryImgBg: {
     width: normalize(50),
     height: normalize(50),
     borderRadius: normalize(25),
-    backgroundColor: "#F3F4F6",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#F3F4F6',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: normalize(8),
-    overflow: "hidden",
+    overflow: 'hidden'
   },
   categoryImgBgSelected: {
-    backgroundColor: "#E0F2FE", // Light blue tint
+    backgroundColor: '#E0F2FE', 
   },
-  categoryImg: { width: "80%", height: "80%" },
+  categoryImg: { width: '80%', height: '80%' },
   categoryText: {
     fontSize: normalize(10),
-    color: "#6B7280",
-    textAlign: "center",
+    color: '#6B7280',
+    textAlign: 'center',
   },
   categoryTextSelected: {
-    color: "#111827",
-    fontWeight: "bold",
+    color: '#111827',
+    fontWeight: 'bold',
   },
-
-  // Right Content (Products)
   rightContent: {
     flex: 1,
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
   },
   productsGrid: {
     padding: normalize(12),
-    paddingBottom: normalize(100), // Space for cart banner
+    paddingBottom: normalize(100), 
   },
   rowWrapper: {
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     marginBottom: normalize(12),
   },
-
-  // --- Product Card Styles ---
   productCard: {
-    width: "48%", // Allows 2 columns with spacing
-    backgroundColor: "#FFF",
+    width: '48%', 
+    backgroundColor: '#FFF',
     borderRadius: normalize(8),
     borderWidth: 1,
-    borderColor: "#E5E7EB",
-    overflow: "hidden",
+    borderColor: '#E5E7EB',
+    overflow: 'hidden',
   },
   imageWrapper: {
-    backgroundColor: "#F9FAFB",
+    backgroundColor: '#F9FAFB',
     height: normalize(120),
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
   },
   productImage: {
-    width: "80%",
-    height: "80%",
+    width: '80%',
+    height: '80%',
   },
   addBtnContainer: {
-    position: "absolute",
+    position: 'absolute',
     bottom: normalize(-12),
     right: normalize(8),
     zIndex: 10,
   },
   addBtnOutline: {
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
     borderWidth: 1,
-    borderColor: "#058A46",
+    borderColor: '#058A46',
     borderRadius: normalize(6),
     paddingHorizontal: normalize(16),
     paddingVertical: normalize(6),
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: normalize(2),
     elevation: 2,
   },
   addBtnText: {
-    color: "#058A46",
-    fontWeight: "bold",
+    color: '#058A46',
+    fontWeight: 'bold',
     fontSize: normalize(12),
   },
   qtyContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#058A46",
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#058A46',
     borderRadius: normalize(6),
     height: normalize(28),
     paddingHorizontal: normalize(4),
   },
   qtyBtn: {
     paddingHorizontal: normalize(6),
-    height: "100%",
-    justifyContent: "center",
+    height: '100%',
+    justifyContent: 'center',
   },
   qtyText: {
-    color: "#FFF",
-    fontWeight: "bold",
+    color: '#FFF',
+    fontWeight: 'bold',
     fontSize: normalize(12),
     minWidth: normalize(16),
-    textAlign: "center",
+    textAlign: 'center',
   },
   productDetails: {
     paddingHorizontal: normalize(10),
-    paddingTop: normalize(18), // Space for overlapping add button
+    paddingTop: normalize(18), 
     paddingBottom: normalize(10),
   },
   productWeight: {
     fontSize: normalize(10),
-    color: "#6B7280",
+    color: '#6B7280',
     marginBottom: normalize(2),
   },
   productName: {
     fontSize: normalize(12),
-    fontWeight: "700",
-    color: "#111827",
+    fontWeight: '700',
+    color: '#111827',
     marginBottom: normalize(4),
     minHeight: normalize(32),
   },
   productDiscount: {
     fontSize: normalize(10),
-    color: "#FF3B30",
-    fontWeight: "bold",
+    color: '#FF3B30',
+    fontWeight: 'bold',
     marginBottom: normalize(2),
   },
   priceRow: {
-    flexDirection: "row",
-    alignItems: "baseline",
+    flexDirection: 'row',
+    alignItems: 'baseline',
     marginBottom: normalize(4),
   },
   productPrice: {
     fontSize: normalize(16),
-    fontWeight: "bold",
-    color: "#111827",
+    fontWeight: 'bold',
+    color: '#111827',
   },
   productMrp: {
     fontSize: normalize(11),
-    color: "#9CA3AF",
-    textDecorationLine: "line-through",
+    color: '#9CA3AF',
+    textDecorationLine: 'line-through',
     marginLeft: normalize(6),
   },
   productDesc: {
     fontSize: normalize(10),
-    color: "#9CA3AF",
+    color: '#9CA3AF',
     minHeight: normalize(26),
   },
   aiBanner: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     borderTopWidth: 1,
-    borderTopColor: "#F3F4F6",
+    borderTopColor: '#F3F4F6',
     paddingVertical: normalize(8),
     paddingHorizontal: normalize(10),
   },
   aiBannerText: {
-    color: "#058A46",
+    color: '#058A46',
     fontSize: normalize(10),
-    fontWeight: "600",
+    fontWeight: '600',
     marginLeft: normalize(4),
   },
-
-  // Bottom Fixed Banner
   bottomFixedContainer: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
     zIndex: 100,
-    backgroundColor: "transparent",
-    paddingBottom: Platform.OS === "ios" ? normalize(16) : 0,
-  },
+    backgroundColor: 'transparent',
+    paddingBottom: Platform.OS === 'ios' ? normalize(16) : 0,
+  }
 });

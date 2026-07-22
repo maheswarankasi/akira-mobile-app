@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -11,7 +11,11 @@ import {
 } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Location from "expo-location";
-import { LinearGradient } from "expo-linear-gradient"; // புது Import
+import { LinearGradient } from "expo-linear-gradient";
+
+// --- Redux Imports ---
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentShop } from "../store/shopSlice"; 
 
 // 1. Dynamic Themes
 const THEMES = {
@@ -55,8 +59,11 @@ const OutwardCurve = ({ side, activeBg, headerBg }) => (
 );
 
 export default function TopHeader({ onTabChange }) {
-  const [activeTab, setActiveTab] = useState("pure_natural");
-  const [currentAddress, setCurrentAddress] = useState("Fetching location...");
+  const dispatch = useDispatch();
+  
+  // Local state-க்கு பதிலாக Redux-ல் இருந்து activeTab-ஐ எடுக்கிறோம்
+  const activeTab = useSelector((state) => state.shop?.currentShop) || "pure_natural";
+  const [currentAddress, setCurrentAddress] = React.useState("Fetching location...");
 
   const theme = THEMES[activeTab];
 
@@ -90,7 +97,7 @@ export default function TopHeader({ onTabChange }) {
   };
 
   const handleTabPress = (tabId) => {
-    setActiveTab(tabId);
+    dispatch(setCurrentShop(tabId)); // Redux-ல் அப்டேட் செய்கிறோம்
     if (onTabChange) onTabChange(tabId);
   };
 
@@ -128,7 +135,6 @@ export default function TopHeader({ onTabChange }) {
       );
     }
 
-    // Inactive Tab வித் Gradient Fading Border
     return (
       <TouchableOpacity
         style={[styles.tab, styles.inactiveTabContainer]}
@@ -136,7 +142,7 @@ export default function TopHeader({ onTabChange }) {
         activeOpacity={0.9}
       >
         <LinearGradient
-          colors={[theme.inactiveBorder, "transparent"]} // மேலிருந்து கீழ் மறையும் நிறம்
+          colors={[theme.inactiveBorder, "transparent"]}
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1 }}
           style={styles.gradientBorderWrapper}
@@ -158,7 +164,6 @@ export default function TopHeader({ onTabChange }) {
       style={[styles.safeArea, { backgroundColor: theme.headerBg }]}
     >
       <View style={[styles.topContainer, { backgroundColor: theme.headerBg }]}>
-        {/* --- Location Section --- */}
         <View style={styles.locationWrapper}>
           <TouchableOpacity style={styles.locationTitleRow}>
             <Text style={styles.locationTitle}>Home</Text>
@@ -174,7 +179,6 @@ export default function TopHeader({ onTabChange }) {
           </Text>
         </View>
 
-        {/* --- Navigation Tabs --- */}
         <View style={styles.tabsContainer}>
           {renderTab(
             "pure_natural",
@@ -188,156 +192,29 @@ export default function TopHeader({ onTabChange }) {
           )}
           {renderTab(
             "craft_village",
-            require("../assets//images/craft-village-inactive.png"),
+            require("../assets/images/craft-village-inactive.png"), // சரிபார்க்கப்பட்டது
             require("../assets/images/craft-village-inactive.png"),
           )}
         </View>
       </View>
-
-      {/* --- Dynamic Search Section --- */}
-      {/* <View
-        style={[
-          styles.bottomSection,
-          { backgroundColor: theme.activeSectionBg },
-        ]}
-      >
-        <View style={styles.searchBar}>
-          <Ionicons
-            name="search-outline"
-            size={20}
-            color="#6B7280"
-            style={styles.searchIcon}
-          />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search for 'Vegetables'"
-            placeholderTextColor="#9CA3AF"
-          />
-          <TouchableOpacity style={styles.micIconWrapper}>
-            <MaterialCommunityIcons
-              name="microphone-outline"
-              size={24}
-              color={theme.micIcon}
-            />
-          </TouchableOpacity>
-        </View>
-      </View> */}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    paddingTop: Platform.OS === "android" ? 40 : 0,
-  },
-  topContainer: {
-    paddingHorizontal: 16,
-    paddingTop: 10,
-  },
-  locationWrapper: {
-    marginBottom: 16,
-  },
-  locationTitleRow: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  locationTitle: {
-    fontSize: 18,
-    fontWeight: "700",
-    color: "#111827",
-  },
-  addressText: {
-    fontSize: 13,
-    color: "#4B5563",
-    marginTop: 4,
-  },
-  tabsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-end",
-    marginBottom: 0,
-  },
-  tab: {
-    flex: 1,
-    height: 55,
-    marginHorizontal: 4,
-  },
-  activeTab: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    zIndex: 1,
-  },
-  inactiveTabContainer: {
-    zIndex: 2,
-  },
-  // Gradient பார்டருக்கான ட்ரிக்
-  gradientBorderWrapper: {
-    flex: 1,
-    paddingTop: 1.5,
-    paddingHorizontal: 1.5, // இடது மற்றும் வலது பக்கம் மட்டும் 1.5px அளவு
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    borderBottomLeftRadius: 16,  
-    borderBottomRightRadius: 16,
-  },
-  inactiveInner: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-    borderTopLeftRadius: 14.5, // 16px-ல் 1.5px பார்டரை கழித்து வளைவு
-    borderTopRightRadius: 14.5,
-    borderBottomLeftRadius: 14.5,  // <-- இதை புதிதாக சேர்க்கவும்
-    borderBottomRightRadius: 14.5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  tabImage: {
-    width: "80%",
-    height: 35,
-  },
-  curveContainer: {
-    position: "absolute",
-    bottom: 0,
-    width: 20,
-    height: 20,
-    overflow: "hidden",
-    // zIndex: 10,
-  },
-  curveChild: {
-    position: "absolute",
-    top: -20,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-  },
-  bottomSection: {
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
-    marginTop: -5,
-    zIndex: 10,
-  },
-  searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    height: 50,
-  },
-  searchIcon: {
-    marginRight: 8,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 15,
-    color: "#111827",
-  },
-  micIconWrapper: {
-    paddingLeft: 8,
-    borderLeftWidth: 1,
-    borderLeftColor: "#F3F4F6",
-  },
+  safeArea: { paddingTop: Platform.OS === "android" ? 40 : 0 },
+  topContainer: { paddingHorizontal: 16, paddingTop: 10 },
+  locationWrapper: { marginBottom: 16 },
+  locationTitleRow: { flexDirection: "row", alignItems: "center" },
+  locationTitle: { fontSize: 18, fontWeight: "700", color: "#111827" },
+  addressText: { fontSize: 13, color: "#4B5563", marginTop: 4 },
+  tabsContainer: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 0 },
+  tab: { flex: 1, height: 55, marginHorizontal: 4 },
+  activeTab: { justifyContent: "center", alignItems: "center", borderTopLeftRadius: 16, borderTopRightRadius: 16, zIndex: 1 },
+  inactiveTabContainer: { zIndex: 2 },
+  gradientBorderWrapper: { flex: 1, paddingTop: 1.5, paddingHorizontal: 1.5, borderTopLeftRadius: 16, borderTopRightRadius: 16, borderBottomLeftRadius: 16, borderBottomRightRadius: 16 },
+  inactiveInner: { flex: 1, backgroundColor: "#FFFFFF", borderTopLeftRadius: 14.5, borderTopRightRadius: 14.5, borderBottomLeftRadius: 14.5, borderBottomRightRadius: 14.5, justifyContent: "center", alignItems: "center" },
+  tabImage: { width: "80%", height: 35 },
+  curveContainer: { position: "absolute", bottom: 0, width: 20, height: 20, overflow: "hidden" },
+  curveChild: { position: "absolute", top: -20, width: 40, height: 40, borderRadius: 20 },
 });
